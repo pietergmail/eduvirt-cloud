@@ -6,4 +6,6 @@
 
 sudo pkg install -y nomad 
 
+# small config change
+
 ifconfig "lo0" name lo
