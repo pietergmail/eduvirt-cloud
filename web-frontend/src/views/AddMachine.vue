@@ -3,7 +3,7 @@
         <Navigation />
 
 
-        <div class="flex flex-col mt-20 mx-auto px-8 md:px-14 lg:px-24 container">
+        <div class="flex flex-col mt-20 mx-auto px-8 md:px-14 lg:px-24 container animate-moveintotop">
         <h2 class="font-bold text-center text-4xl mb-8 text-ucllblue">Create Virtual Machine</h2>
             <div class="grid grid-cols-2 w-full" >
                 <div class="bg-ucllblue w-full p-8 flex flex-col gap-4">
