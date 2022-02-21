@@ -19,7 +19,8 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
+import axios from 'axios';
 import Navigation from "../components/Navigation.vue";
 
 export default {
@@ -33,6 +34,23 @@ export default {
             selectedTemplate: '',
             selectedCourse: '',
         };
+    },
+
+      methods: {
+        async getVMS() {
+          console.log('Getting VM list...');
+          await axios.get('http://192.168.139.128:4646/v1/jobs')
+          .then(response => {
+            this.users = response.data;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        },
+    },
+
+    created() {
+      this.getVMS();
     },
 };
 </script>

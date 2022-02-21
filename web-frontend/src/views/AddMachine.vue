@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Navigation from "../components/Navigation.vue";
 export default {
     components: {
@@ -54,10 +55,15 @@ export default {
     },
 
     methods: {
-        createVM() {
-            // redirect user to home page
+        async createVM() {
+            console.log('Creating VM...');
             if(this.selectedTemplate.length > 0 && this.selectedCourse.length > 0) {
-                this.$router.push("/" + this.selectedTemplate + "/" + this.selectedCourse);
+                await axios.post('http://192.168.139.128:4646/v1/jobs', {
+                    template: this.selectedTemplate,
+                    course: this.selectedCourse,
+                })
+                this.$router.push("/machines");
+                alert("Your virtual machine has been created for the course " + this.selectedCourse + " with the template " + this.selectedTemplate);
             }
             else {
                 alert("Please select a template and a course");
