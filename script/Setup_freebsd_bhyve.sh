@@ -16,7 +16,7 @@ echo 'nmdm_load="YES"' >> /boot/loader.conf
 echo 'vmm_load="YES"' >> /boot/loader.conf
 
 sysctl net.link.tap.up_on_open=1
-sysctl net.link.bridge.ipfw=0
+sysctl net.link.bridge.ipfw=1
 sysctl net.link.bridge.pfil_bridge=0
 sysctl net.link.bridge.pfil_member=0
 
@@ -32,11 +32,6 @@ zfs create zroot/vm
 
 sysrc vm_enable="YES"
 sysrc vm_dir="zfs:zroot/vm"
-
-sysrc gateway_enable="yes"
-echo "nat on le0 from {192.168.35.0/24} to any -> (le0)" >> /etc/pf.conf
-sysctl net.inet.ip.forwarding=1
-
 
 cd /zroot/vm
 
