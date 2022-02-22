@@ -13,7 +13,7 @@
           <p>{{machine.machineName}}</p>
           <p>{{machine.templateName}}</p>
           <p>{{machine.courseName}}</p>
-          <!-- <a class="text-blue-600" :href="user.machines.console">Open Console</a> -->
+          <a class="text-blue-600" href="#">Open Console</a>
         </div>  
     </div>
   </div>
@@ -48,7 +48,6 @@ export default {
         async getUserWithUsername() {
             console.log('Getting User...');
             const response = await axios.post('http://localhost:3000/getUser', {"username": sessionStorage.getItem('username')});
-            console.log(response.data);
             this.machines = response.data;
         },
 

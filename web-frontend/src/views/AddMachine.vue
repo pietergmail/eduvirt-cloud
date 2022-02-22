@@ -87,7 +87,7 @@ export default {
                 alert("Your virtual machine has been created with the name " + this.selectedMachineName + " for the course " + this.selectedCourse + " with the template " + this.selectedTemplate);
             }
             else {
-                alert("Please select a template and a course");
+                alert("Please fill in a machine name, a template and a course");
             }
         },
 

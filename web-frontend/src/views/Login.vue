@@ -35,7 +35,6 @@ export default {
                     password: this.password,
                 });
                 if(response.data.username === this.username && response.data.password === this.password) {
-                    console.log(response.data);
                     sessionStorage.setItem("username", response.data.username);
                    this.$router.push("/home");
                 } else{
