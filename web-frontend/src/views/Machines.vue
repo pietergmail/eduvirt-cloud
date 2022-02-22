@@ -9,11 +9,11 @@
           <h3>Course</h3>
           <h3>Console</h3>
         </div>
-        <div class="grid grid-cols-4 bg-gray-200 sm:px-8 py-8 text-center" v-for="user in users" :key="user.id">
-          <p>{{user.servers.name}}</p>
-          <p>{{user.servers.template}}</p>
-          <p>{{user.servers.course}}</p>
-          <a class="text-blue-600" :href="user.servers.console">Open Console</a>
+        <div class="grid grid-cols-4 bg-gray-200 sm:px-8 py-8 text-center" v-for="machine in machines" :key="machine.id">
+          <p>{{machine.machineName}}</p>
+          <p>{{machine.templateName}}</p>
+          <p>{{machine.courseName}}</p>
+          <!-- <a class="text-blue-600" :href="user.machines.console">Open Console</a> -->
         </div>  
     </div>
   </div>
@@ -29,28 +29,34 @@ export default {
   },
       data() {
         return {
-            users: [{"username": "admin", "servers": {"id": "1", "name": "Windows 10 voor Besturing", "course": "Besturing", "template": "Windows 10", "console": "https://console.cloud.ucll.be/"}},
-            {"username": "user", "servers": {"id": "1", "name": "Ubuntu 11 voor Besturing", "course": "Besturing", "template": "Ubuntu 11", "console": "https://console.cloud.ucll.be/"}}],
-            selectedTemplate: '',
-            selectedCourse: '',
+          machines: [],
         };
     },
 
       methods: {
-        async getVMS() {
-          console.log('Getting VM list...');
-          await axios.get('http://192.168.139.128:4646/v1/jobs')
-          .then(response => {
-            this.users = response.data;
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        // async getVMS() {
+        //   console.log('Getting VM list...');
+        //   await axios.get('http://192.168.139.128:4646/v1/jobs')
+        //   .then(response => {
+        //     this.users = response.data;
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   });
+        // },
+
+        async getUserWithUsername() {
+            console.log('Getting User...');
+            const response = await axios.post('http://localhost:3000/getUser', {"username": sessionStorage.getItem('username')});
+            console.log(response.data);
+            this.machines = response.data;
         },
+
+
     },
 
     created() {
-      this.getVMS();
+      this.getUserWithUsername();
     },
 };
 </script>

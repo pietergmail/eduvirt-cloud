@@ -6,8 +6,8 @@
                 <label class="text-white text-lg" for="username">Username</label>
                 <input class="py-2 rounded-sm" type="text" name="username" id="username" v-model="username">
                 <label class="text-white text-lg" for="password">Password</label>
-                <input class="py-2 rounded-sm" type="text" name="password" id="password" v-model="password">
-                <input class="py-2 rounded-sm" type="submit" value="Login" v-on:click="login">
+                <input class="py-2 rounded-sm" type="password" name="password" id="password" v-model="password">
+                <input class="py-2 rounded-sm" type="submit" value="Login" v-on:click="loginUser">
             </div>
         </div>
     </div>
@@ -16,6 +16,7 @@
 
 
 <script>
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -24,15 +25,24 @@ export default {
         };
     },
     methods: {
-        login() {
-            if(this.username.length > 0 && this.password.length > 0) {
-                this.$router.push("/home");
-                
+        async loginUser() {
+            console.log('Loggin in...');
+            if(this.username == '' || this.password == '') {
+                alert('Please fill in all fields');
+            } else {
+                const response = await axios.post('http://localhost:3000/loginUser', {
+                    username: this.username,
+                    password: this.password,
+                });
+                if(response.data.username === this.username && response.data.password === this.password) {
+                    console.log(response.data);
+                    sessionStorage.setItem("username", response.data.username);
+                   this.$router.push("/home");
+                } else{
+                    alert('Wrong username or password');
+                }
             }
-            else {
-                alert("Please enter a username and a password");
-            }
-        }
+        },
     }
 }
 </script>
