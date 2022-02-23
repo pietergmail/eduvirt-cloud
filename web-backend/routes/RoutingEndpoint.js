@@ -1,4 +1,6 @@
 
+var sys = require('util')
+var exec = require('child_process').exec;
 
 // hardcoded for now
 const users = 
@@ -47,6 +49,20 @@ const getTemplates = (req, res) => {
 const createMachine = (req, res) => {
     const user = users.find(user => user.username === req.body.username);
     user.machines.push({"machineName": req.body.machineName, "templateName": req.body.templateName, "courseName": req.body.courseName});
+
+    
+
+    // script to create machine
+    exec('bash ./nomad/script.sh ' + req.body.templateName,
+  function (error, stdout, stderr) {
+    console.log('stdout: ' + stdout);
+    console.log('stderr: ' + stderr);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }
+});
+// end script to make machine
+
     res.send(users);
 };
 
