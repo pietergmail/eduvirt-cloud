@@ -1,9 +1,11 @@
 #!/bin/sh
 
+templateName=$1
+user=$2
+vak=$3
 
-user="rnummer"
-vak="vaknaam"
-name="$user@$templateName"
+name=$user"@"$templateName
+
 
 vm clone $templateName $name
 

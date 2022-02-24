@@ -1,5 +1,3 @@
-
-var sys = require('util')
 var exec = require('child_process').exec;
 
 // hardcoded for now
@@ -9,7 +7,7 @@ const users =
 ,{"username": "admin", "password": "admin", "machines": [{"machineName": "Admin Machine", "templateName": "Mint", "courseName": "Admin"}]}
 ];
 const courses = [{"courseName": "Netwerken-1"},{"courseName": "Netwerken-2"},{"courseName": "Systeembeheer"}];
-const templates = [{"name": "Windows 10"},{"name": "Windows Server 2022"},{"name": "Mint"}, {"name": "FreeBSD"}];
+const templates = [{"name": "Windows-10"},{"name": "Windows-Server-2022"},{"name": "Mint"}, {"name": "FreeBSD"}];
 // hardcoded for now
 
 
@@ -53,7 +51,7 @@ const createMachine = (req, res) => {
     
 
     // script to create machine
-    exec('bash ./nomad/script.sh ' + req.body.templateName,
+    exec('bash ./nomad/script.sh ' + req.body.templateName + " " + req.body.username + " " + req.body.courseName,
   function (error, stdout, stderr) {
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
