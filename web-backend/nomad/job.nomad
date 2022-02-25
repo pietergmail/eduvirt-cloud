@@ -6,7 +6,7 @@ job "demojobforvm" {
       driver = "raw_exec"
 
       config {
-        command = "/home/matthias/Desktop/scripts/clonevm.sh"
+        command = "/home/t/eduvirt-cloud/web-backend/nomad/script.sh"
       }
     }
   }
