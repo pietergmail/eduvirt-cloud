@@ -76,7 +76,7 @@ export default {
         async createVM() {
             console.log('Creating VM...');
             if(this.selectedTemplate.length > 0 && this.selectedCourse.length > 0 && this.selectedMachineName.length > 0) {
-                await axios.post('http://localhost:3000/createMachine', {
+                await axios.post('http://200.200.200.102/createMachine', {
     "username": sessionStorage.getItem('username'),
     "machineName": this.selectedMachineName, 
     "templateName": this.selectedTemplate, 

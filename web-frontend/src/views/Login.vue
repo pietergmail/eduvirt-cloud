@@ -30,12 +30,13 @@ export default {
             if(this.username == '' || this.password == '') {
                 alert('Please fill in all fields');
             } else {
-                const response = await axios.post('http://localhost:3000/loginUser', {
+                const response = await axios.post('http://200.200.200.102/loginUser', {
                     username: this.username,
                     password: this.password,
                 });
                 if(response.data.username === this.username && response.data.password === this.password) {
                     sessionStorage.setItem("username", response.data.username);
+                    process.env.USERNAME = response.data.username;
                    this.$router.push("/home");
                 } else{
                     alert('Wrong username or password');

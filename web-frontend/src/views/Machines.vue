@@ -47,7 +47,7 @@ export default {
 
         async getUserWithUsername() {
             console.log('Getting User...');
-            const response = await axios.post('http://localhost:3000/getUser', {"username": sessionStorage.getItem('username')});
+            const response = await axios.post('http://200.200.200.102/getUser', {"username": sessionStorage.getItem('username')});
             this.machines = response.data;
         },
 
