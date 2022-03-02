@@ -55,7 +55,7 @@ export default {
         async createVM() {
             console.log('Creating VM...');
             if(this.selectedTemplate.length > 0 && this.selectedCourse.length > 0) {
-                await axios.post('http://localhost:3000/createMachine', {
+                await axios.post('http://200.200.200.102:3000/createMachine', {
     "username": sessionStorage.getItem('username'),
     "mName": this.selectedTemplate, 
     "mCourse": this.selectedCourse
@@ -73,13 +73,13 @@ export default {
         
         async getCourses() {
             console.log('Getting Courses...');
-            const response = await axios.get('http://localhost:3000/courses');
+            const response = await axios.get('http://200.200.200.102:3000/courses');
             this.courses = response.data;
         },
 
         async getTemplates() {
             console.log('Getting Templates...');
-            const response = await axios.get('http://localhost:3000/templates');
+            const response = await axios.get('http://200.200.200.102:3000/templates');
             this.templates = response.data;
         },
     },
