@@ -18,6 +18,7 @@ app.get('/courses', RoutingEndpoint.getCourses);
 app.get('/templates', RoutingEndpoint.getTemplates);
 app.post('/getUser', RoutingEndpoint.getUserWithUsername);
 app.post('/createMachine', RoutingEndpoint.createMachine);
+app.post('/machines', RoutingEndpoint.getMachinesOfUser);
 
 
 // auth CRUD
