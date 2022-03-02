@@ -71,7 +71,7 @@ const getMachinesOfUser = (req, res) => {
     function (error, stdout, stderr) {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
-      res.send(stderr);
+      res.send(stdout);
       if (error !== null) {
         console.log('exec error: ' + error);
       }

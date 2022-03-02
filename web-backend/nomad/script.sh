@@ -5,12 +5,14 @@ user=$2
 vak=$3
 
 name=$user"_"$templateName
-
+ 
 if (vm list | grep $name)
 then
     if (vm list | grep $name-);
     then
 	echo "succes"
+	lastName=$(vm list | grep $name- | tail -1 | awk '$1')
+	echo $lastName
         lastchar=${name: -1} #get last char
 	echo "$lastchar"
         name=${name:: -1} #remove last char from name
