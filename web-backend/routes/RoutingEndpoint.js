@@ -1,13 +1,34 @@
 var exec = require('child_process').exec;
 
+
+class Machine {
+    constructor(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse)
+    {
+        this.mName = mName;
+        this.mLoader = mLoader;
+        this.mCores = mCores;
+        this.mRAM = mRAM;
+        this.mIP = mIP;
+        this.mStatus = mStatus;
+        this.mCourse = mCourse;
+    }
+}
+
 // hardcoded for now
 const users = 
 [
-{"username": "user1", "password": "pass1", "machines": [{"machineName": "hadige mint", "templateName": "Mint", "courseName": "Systeembeheer"}, {"machineName": "server voor netwerken 2", "templateName": "Windows Server 2022", "courseName": "Netwerken-2"}]}
-,{"username": "admin", "password": "admin", "machines": [{"machineName": "Admin Machine", "templateName": "Mint", "courseName": "Admin"}]}
+{"username": "user1", "password": "pass1", "machines": []}
+,{"username": "admin", "password": "admin", "machines": []}
 ];
 const courses = [{"courseName": "Netwerken-1"},{"courseName": "Netwerken-2"},{"courseName": "Systeembeheer"}];
 const templates = [{"name": "Windows-10"},{"name": "Windows-Server-2022"},{"name": "Mint"}, {"name": "FreeBSD"}];
+
+
+const defaultMachineUser = users.find(user => user.username === "user1");
+defaultMachineUser.machines.push(new Machine("FreeBSD", "bhyveloader", "2", "8", "192.0.0.1", "running", "systeembeheer"));
+
+const defaultMachineAdmin = users.find(user => user.username === "admin");
+defaultMachineAdmin.machines.push(new Machine("FreeBSD", "bhyveloader", "2", "8", "192.0.0.1", "running", "Admin"));
 // hardcoded for now
 
 
@@ -43,10 +64,25 @@ const getTemplates = (req, res) => {
 };
 
 
+const getMachinesOfUser = (req, res) => {
+
+    const user = users.find(user => user.username === req.body.username);
+    exec('vm list | grep ' + req.body.username,
+    function (error, stdout, stderr) {
+      console.log('stdout: ' + stdout);
+      console.log('stderr: ' + stderr);
+      res.send(stderr);
+      if (error !== null) {
+        console.log('exec error: ' + error);
+      }
+    });
+};
+
+
 // Nomad komt hier in
 const createMachine = (req, res) => {
     const user = users.find(user => user.username === req.body.username);
-    user.machines.push({"machineName": req.body.machineName, "templateName": req.body.templateName, "courseName": req.body.courseName});
+    user.machines.push({"mName": req.body.mName, "mCourse": req.body.mCourse});
 
     
 
@@ -58,7 +94,7 @@ const createMachine = (req, res) => {
     if (error !== null) {
       console.log('exec error: ' + error);
     }
-});
+    });
 // end script to make machine
 
     res.send(users);
@@ -72,4 +108,5 @@ module.exports = {
     getTemplates,
     createMachine,
     loginUser,
+    getMachinesOfUser,
   }

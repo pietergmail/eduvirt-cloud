@@ -6,10 +6,6 @@
         <div class="flex flex-col mt-20 mx-auto px-8 md:px-14 lg:px-24 container animate-moveintotop">
         <h2 class="font-bold text-center text-4xl mb-8 text-ucllblue">Create Virtual Machine</h2>
             <div class="grid grid-cols-2 w-full" >
-                <div class="bg-ucllblue w-full p-8 flex flex-row col-span-2 gap-4 items-center">
-                    <label class="text-white font-bold" for="">Machine Name:</label>
-                    <input class="py-2" type="text" name="" id="" v-model="selectedMachineName">
-                </div>
                 <div class="bg-ucllblue w-full p-8 flex flex-col gap-4">
                     <label class="text-white font-bold" for="">Template</label>
                     <select class="py-2 cursor-pointer" name="" id="" v-model="selectedTemplate" >
@@ -52,42 +48,23 @@ export default {
             courses: '',
             selectedTemplate: '',
             selectedCourse: '',
-            selectedMachineName: '',
         };
     },
 
     methods: {
-        // async createVM() {
-        //     console.log('Creating VM...');
-        //     if(this.selectedTemplate.length > 0 && this.selectedCourse.length > 0 && this.selectedMachineName.length > 0) {
-        //         await axios.post('http://192.168.139.128:4646/v1/jobs', {
-        //             template: this.selectedTemplate,
-        //             course: this.selectedCourse,
-        //         })
-        //         this.$router.push("/machines");
-        //         console.log(this.selectedMachineName);
-        //         alert("Your virtual machine has been created with the name " + this.selectedMachineName + " for the course " + this.selectedCourse + " with the template " + this.selectedTemplate);
-        //     }
-        //     else {
-        //         alert("Please select a template and a course");
-        //     }
-        // },
-
         async createVM() {
             console.log('Creating VM...');
-            if(this.selectedTemplate.length > 0 && this.selectedCourse.length > 0 && this.selectedMachineName.length > 0) {
-                await axios.post('http://200.200.200.102:3000/createMachine', {
+            if(this.selectedTemplate.length > 0 && this.selectedCourse.length > 0) {
+                await axios.post('http://localhost:3000/createMachine', {
     "username": sessionStorage.getItem('username'),
-    "machineName": this.selectedMachineName, 
-    "templateName": this.selectedTemplate, 
-    "courseName": this.selectedCourse
+    "mName": this.selectedTemplate, 
+    "mCourse": this.selectedCourse
 })
                 this.$router.push("/machines");
-                console.log(this.selectedMachineName);
-                alert("Your virtual machine has been created with the name " + this.selectedMachineName + " for the course " + this.selectedCourse + " with the template " + this.selectedTemplate);
+                alert("Your virtual machine has been created for the course " + this.selectedCourse + " with the template " + this.selectedTemplate);
             }
             else {
-                alert("Please fill in a machine name, a template and a course");
+                alert("Please fill in a template and a course");
             }
         },
 
@@ -96,13 +73,13 @@ export default {
         
         async getCourses() {
             console.log('Getting Courses...');
-            const response = await axios.get('http://200.200.200.102:3000/courses');
+            const response = await axios.get('http://localhost:3000/courses');
             this.courses = response.data;
         },
 
         async getTemplates() {
             console.log('Getting Templates...');
-            const response = await axios.get('http://200.200.200.102:3000/templates');
+            const response = await axios.get('http://localhost:3000/templates');
             this.templates = response.data;
         },
     },
