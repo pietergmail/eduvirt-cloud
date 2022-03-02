@@ -30,7 +30,7 @@ export default {
             if(this.username == '' || this.password == '') {
                 alert('Please fill in all fields');
             } else {
-                const response = await axios.post('http://localhost:3000/loginUser', {
+                const response = await axios.post('http://200.200.200.102:3000/loginUser', {
                     username: this.username,
                     password: this.password,
                 });
