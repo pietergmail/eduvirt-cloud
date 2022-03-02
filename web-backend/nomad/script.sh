@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 templateName=$1
 user=$2
@@ -6,21 +6,18 @@ vak=$3
 
 name=$user"_"$templateName
  
-if (vm list | grep $name)
+if (vm list | grep -q $name)
 then
-    if (vm list | grep $name-);
+    if (vm list | grep -q $name-);
     then
-	echo "succes"
-	lastName=$(vm list | grep $name- | tail -1 | awk '$1')
-	echo $lastName
-        lastchar=${name: -1} #get last char
+	lastName=$(vm list | grep Ubuntu | tail -1 | awk '{print $1}')
+	lastchar=${lastName: -1} #get last char
 	echo "$lastchar"
-        name=${name:: -1} #remove last char from name
-	echo "$newName"
+        name=${lastName:: -1} #remove last char from name
         newName="${name}$((lastchar + 1))" #add new last char to name
 	echo "$newName"
+	name=$newName
     else
-	echo "bad"
         name="${name}-1"
     fi
 fi

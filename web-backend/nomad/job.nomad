@@ -8,7 +8,7 @@ variable "courseName" {
   type = string
 }
 
-job "again" {
+job "tryagain" {
   datacenters = ["dc1"]
   type = "batch"
   group "cloneagain" {
