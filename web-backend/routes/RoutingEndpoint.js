@@ -51,7 +51,7 @@ const createMachine = (req, res) => {
     
 
     // script to create machine
-    exec('bash ./nomad/script.sh ' + req.body.templateName + " " + req.body.username + " " + req.body.courseName,
+    exec('nomad job run -var=\"templateName=' + req.body.templateName + '\" -var=\"userName=' + req.body.username + '\" -var=\"courseName=' + req.body.courseName + '\" /home/t/eduvirt-cloud/web-backend/nomad/job.nomad',
   function (error, stdout, stderr) {
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
