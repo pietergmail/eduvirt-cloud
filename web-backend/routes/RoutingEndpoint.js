@@ -71,9 +71,6 @@ const getMachinesOfUser = (req, res) => {
     function (error, stdout, stderr) {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
-<<<<<<< HEAD
-      res.send(stdout);
-=======
     //   stdout = "FreeBSD bhyveloader 2 8 192.0.0.1 running systeembeheer" + "\n" +"pepegaOS pepegaloader 8 16 192.0.0.2 stopped pepegacourse" + "\n" +"pepegaOS pepegaloader 8 16 192.0.0.2 stopped pepegacourse";
       const machines = [];
     //   get every line of sdout
@@ -88,7 +85,6 @@ const getMachinesOfUser = (req, res) => {
 
       console.log(stdout);
       res.send(machines);
->>>>>>> 5ba6de3f9ba608920af35e1f97e4d79bbaec1f57
       if (error !== null) {
         console.log('exec error: ' + error);
       }
