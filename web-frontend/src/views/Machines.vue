@@ -20,7 +20,8 @@
           <p>{{machine.mRAM}}</p>
           <p>{{machine.mIP}}</p>
           <p>{{machine.mStatus}}</p>
-        </div>  
+        </div> 
+        <div class="bg-yellow-200 p-4 text-center">{{machines}}</div>
     </div>
   </div>
 </template>

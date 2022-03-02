@@ -71,7 +71,24 @@ const getMachinesOfUser = (req, res) => {
     function (error, stdout, stderr) {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
+<<<<<<< HEAD
       res.send(stdout);
+=======
+    //   stdout = "FreeBSD bhyveloader 2 8 192.0.0.1 running systeembeheer" + "\n" +"pepegaOS pepegaloader 8 16 192.0.0.2 stopped pepegacourse" + "\n" +"pepegaOS pepegaloader 8 16 192.0.0.2 stopped pepegacourse";
+      const machines = [];
+    //   get every line of sdout
+        stdout.split("\n").forEach(line => {
+            // split every line into an array
+            const splitLine = line.split(" ");
+            // create a new machine
+            const machine = new Machine(splitLine[0], splitLine[1], splitLine[2], splitLine[3], splitLine[4], splitLine[5], splitLine[6]);
+            // push the machine to the machines array
+            machines.push(machine);
+        });
+
+      console.log(stdout);
+      res.send(machines);
+>>>>>>> 5ba6de3f9ba608920af35e1f97e4d79bbaec1f57
       if (error !== null) {
         console.log('exec error: ' + error);
       }
