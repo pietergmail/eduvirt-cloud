@@ -8,13 +8,18 @@ name=$user"_"$templateName
 
 if (vm list | grep $name)
 then
-    if($name | grep "_")
+    if (vm list | grep $name-);
     then
+	echo "succes"
         lastchar=${name: -1} #get last char
+	echo "$lastchar"
         name=${name:: -1} #remove last char from name
-        name+=$((lastchar + 1)) #add new last char to name
+	echo "$newName"
+        newName="${name}$((lastchar + 1))" #add new last char to name
+	echo "$newName"
     else
-        name+=_1
+	echo "bad"
+        name="${name}-1"
     fi
 fi
 
@@ -24,11 +29,13 @@ cd /zroot/vm/$name
 
 if(vm switch list | grep $vak)
 then
-    sed -i "s/public/$vak/" "$name.conf"
+    sed -i .bak "s/public/$vak/" "$name.conf"
+    rm $name.conf.bak
 else
     vm switch create $vak
     #vm switch add $vak em0
-    sed -i "s/public/$vak/" "$name.conf"
+    sed -i .bak "s/public/$vak/" "$name.conf"
+    rm $name.conf.bak
 fi
 
 vm start $name
