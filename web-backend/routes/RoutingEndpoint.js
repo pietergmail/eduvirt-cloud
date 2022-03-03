@@ -72,7 +72,7 @@ const getMachinesOfUser = (req, res) => {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
       const machines = []
-      stdout = "FreeBSD bhyveloader 2 8 192.0.0.1 running systeembeheer" + "\n" + "pepegaOS pepeloader 2 16 192.0.0.1 stopped systeembeheer"
+     // stdout = "FreeBSD bhyveloader 2 8 192.0.0.1 running systeembeheer" + "\n" + "pepegaOS pepeloader 2 16 192.0.0.1 stopped systeembeheer"
 
     //   get every line of stdout and put every word in a new machine
         stdout.split("\n").forEach(line => {
