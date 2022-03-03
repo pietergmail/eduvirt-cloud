@@ -72,15 +72,20 @@ const getMachinesOfUser = (req, res) => {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
       const machines = []
+<<<<<<< HEAD
      // stdout = "FreeBSD bhyveloader 2 8 192.0.0.1 running systeembeheer" + "\n" + "pepegaOS pepeloader 2 16 192.0.0.1 stopped systeembeheer"
+=======
+    //   stdout = "FreeBSD bhyveloader 2 8 192.0.0.1 running systeembeheer" + "    " + "pepegaOS pepeloader 2 16 192.0.0.1 stopped systeembeheer"
+      
+>>>>>>> 66b5bc1417cd187833fa440017e43637ef08583c
 
     //   get every line of stdout and put every word in a new machine
-        stdout.split("\n").forEach(line => {
+        stdout.split("  ").forEach(line => {
             const words = line.split(" ");
             const machine = new Machine(words[0], words[1], words[2], words[3], words[4], words[5], words[6]);
             machines.push(machine);
         });
-      
+        
       res.send(machines);
       if (error !== null) {
         console.log('exec error: ' + error);

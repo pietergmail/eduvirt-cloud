@@ -21,7 +21,7 @@
           <p>{{machine.mIP}}</p>
           <p>{{machine.mStatus}}</p>
         </div> 
-        <!-- <div class="bg-yellow-200 p-4 text-center">{{machines}}</div> -->
+        <div class="bg-yellow-200 p-4 text-center">{{machines}}</div>
     </div>
   </div>
 </template>
@@ -41,24 +41,6 @@ export default {
     },
 
       methods: {
-        // async getVMS() {
-        //   console.log('Getting VM list...');
-        //   await axios.get('http://192.168.139.128:4646/v1/jobs')
-        //   .then(response => {
-        //     this.users = response.data;
-        //   })
-        //   .catch(error => {
-        //     console.log(error);
-        //   });
-        // },
-
-        // async getUserWithUsername() {
-        //     console.log('Getting User...');
-        //     const response = await axios.post('http://200.200.200.102:3000/getUser', {"username": sessionStorage.getItem('username')});
-        //     this.machines = response.data;
-        // },
-
-
         async getVMS() {
           console.log('Getting VM list...');
           const response = await axios.post('http://200.200.200.102:3000/machines', {"username": sessionStorage.getItem('username')})
