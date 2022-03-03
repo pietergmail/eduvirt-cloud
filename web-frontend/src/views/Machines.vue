@@ -3,7 +3,7 @@
     <Navigation />
     <div class="flex flex-col mt-20 mx-auto sm:px-8 md:px-14 lg:px-24 xl:w-7/12 w-full animate-moveintotop">
       <h2 class="font-bold text-center text-4xl mb-8 text-ucllblue">Your Machines</h2>
-        <div class="grid grid-cols-7 bg-ucllred p-4 text-white text-center">
+        <div class="grid grid-cols-8 bg-ucllred p-4 text-white text-center">
           <h3>Machine Name</h3>
           <h3>Loader Name</h3>
           <h3>Course</h3>
@@ -11,8 +11,9 @@
           <h3>RAM</h3>
           <h3>IP</h3>
           <h3>Status</h3>
+          <h3>Rand</h3>
         </div>
-        <div class="grid grid-cols-7 bg-gray-200 p-4 text-center" v-for="machine in machines" :key="machine.id">
+        <!-- <div class="grid grid-cols-8 bg-gray-200 p-4 text-center" v-for="machine in machines" :key="machine.id">
           <p>{{machine.mName}}</p>
           <p>{{machine.mLoader}}</p>
           <p>{{machine.mCourse}}</p>
@@ -20,7 +21,8 @@
           <p>{{machine.mRAM}}</p>
           <p>{{machine.mIP}}</p>
           <p>{{machine.mStatus}}</p>
-        </div> 
+          <p>{{machine.mRand}}</p>
+        </div>  -->
         <div class="bg-yellow-200 p-4 text-center">{{machines}}</div>
     </div>
   </div>
