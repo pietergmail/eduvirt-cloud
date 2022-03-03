@@ -8,11 +8,11 @@ variable "courseName" {
   type = string
 }
 
-job "demojob" {
+job "test" {
   datacenters = ["dc1"]
   type = "batch"
-  group "demogroup" {
-    task "demotask" {
+  group "test" {
+    task "test" {
       driver = "raw_exec"
       config {
         command = "/home/t/eduvirt-cloud/web-backend/nomad/script.sh"

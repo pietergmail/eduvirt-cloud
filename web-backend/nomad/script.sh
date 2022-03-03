@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 templateName=$1
 user=$2
@@ -11,19 +11,14 @@ then
     then
 	lastName=$(vm list | grep Ubuntu | tail -1 | awk '{print $1}')
 	VncPort=$(echo | cat /zroot/vm/$lastName/$lastName.conf | grep 'graphics_port' | grep -o "[0-9][0-9][0-9][0-9]")
-	echo $VncPort
 	lastchar=${lastName: -1} #get last char
         name=${lastName:: -1} #remove last char from name
         newName="${name}$((lastchar + 1))" #add new last char to name
-	name=$newName
-	vm clone $templateName $name
+	vm clone $templateName $newName
 	sed -i .bak "s/$VncPort/$((VncPort + 1))/" "/zroot/vm/$name/$name.conf"
-	VncPort=$((VncPort + 1))
-	echo $VncPort
 	rm /zroot/vm/$name/$name.conf.bak
     else
 	VncPort=$(echo | cat /zroot/vm/$name/$name.conf | grep 'graphics_port' | grep -o "[0-9][0-9][0-9][0-9]")
-	echo $VncPort
         name="${name}-1"
 	vm clone $templateName $name
 	sed -i .bak "s/$VncPort/$((VncPort + 1))/" "/zroot/vm/$name/$name.conf"
