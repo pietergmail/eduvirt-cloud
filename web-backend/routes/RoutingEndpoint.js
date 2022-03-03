@@ -68,7 +68,7 @@ const getTemplates = (req, res) => {
 const getMachinesOfUser = (req, res) => {
 
     const user = users.find(user => user.username === req.body.username);
-    exec('vm list | grep ' + req.body.username,
+    exec('vm list | grep ' + req.body.username + ' | sed "s/  */ /g"',
     function (error, stdout, stderr) {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
