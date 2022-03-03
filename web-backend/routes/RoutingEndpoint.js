@@ -2,7 +2,7 @@ var exec = require('child_process').exec;
 
 
 class Machine {
-    constructor(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse)
+    constructor(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse, mRand)
     {
         this.mName = mName;
         this.mLoader = mLoader;
@@ -11,6 +11,7 @@ class Machine {
         this.mIP = mIP;
         this.mStatus = mStatus;
         this.mCourse = mCourse;
+        this.rand = mRand
     }
 }
 
@@ -71,18 +72,10 @@ const getMachinesOfUser = (req, res) => {
     function (error, stdout, stderr) {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
-      const machines = []
-    //   stdout = "FreeBSD bhyveloader 2 8 192.0.0.1 running systeembeheer" + "    " + "pepegaOS pepeloader 2 16 192.0.0.1 stopped systeembeheer"
       
 
-    //   get every line of stdout and put every word in a new machine
-        stdout.split("  ").forEach(line => {
-            const words = line.split(" ");
-            const machine = new Machine(words[0], words[1], words[2], words[3], words[4], words[5], words[6]);
-            machines.push(machine);
-        });
         
-      res.send(machines);
+      res.send(stdout);
       if (error !== null) {
         console.log('exec error: ' + error);
       }
