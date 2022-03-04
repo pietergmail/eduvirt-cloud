@@ -1,11 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
 templateName=$1
 user=$2
 vak=$3
 
 name=$user"_"$templateName
-if (vm list | grep -q $name)
+
+if (vm list | grep -q $name);
 then
     if (vm list | grep -q $name-);
     then
@@ -14,7 +15,8 @@ then
 	lastchar=${lastName: -1} #get last char
         name=${lastName:: -1} #remove last char from name
         newName="${name}$((lastchar + 1))" #add new last char to name
-	vm clone $templateName $newName
+	name=$newName
+	vm clone $templateName $name
 	sed -i .bak "s/$VncPort/$((VncPort + 1))/" "/zroot/vm/$name/$name.conf"
 	rm /zroot/vm/$name/$name.conf.bak
     else
@@ -30,7 +32,7 @@ fi
 
 cd /zroot/vm/$name
 
-if(vm switch list | grep $vak)
+if(vm switch list | grep -q $vak)
 then
     sed -i .bak "s/public/$vak/" "$name.conf"
     rm $name.conf.bak

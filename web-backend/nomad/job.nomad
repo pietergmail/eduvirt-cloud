@@ -8,15 +8,15 @@ variable "courseName" {
   type = string
 }
 
-job "test" {
+job "${var.userName}_${var.templateName}job" {
   datacenters = ["dc1"]
   type = "batch"
-  group "test" {
-    task "test" {
+  group "wtfgroup" {
+    task "wtftask" {
       driver = "raw_exec"
       config {
-        command = "/home/t/eduvirt-cloud/web-backend/nomad/script.sh"
-	args = ["${var.templateName}", "${var.userName}", "${var.courseName}"]
+        command = "bash"
+	args = ["/home/t/eduvirt-cloud/web-backend/nomad/script.sh","${var.templateName}", "${var.userName}", "${var.courseName}"]
       }
     }
   }
