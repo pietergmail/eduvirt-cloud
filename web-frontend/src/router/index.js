@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Machines from '../views/Machines.vue'
 import AddMachine from '../views/AddMachine.vue'
+import { authGuard } from "../auth/authGuard";
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,10 @@ const routes = [
     redirect: '/login'
   },
   {
+    path: '/callback',
+    redirect: '/home'
+  },
+  {
     path: '/login',
     name: 'Login',
     component: Login
@@ -20,17 +25,20 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: authGuard
   },
   {
     path: '/add_machine',
     name: 'add_machine',
-    component: AddMachine
+    component: AddMachine,
+    beforeEnter: authGuard
   },
   {
     path: '/machines',
     name: 'machines',
-    component: Machines
+    component: Machines,
+    beforeEnter: authGuard
   },
   {
     path: '/about',
