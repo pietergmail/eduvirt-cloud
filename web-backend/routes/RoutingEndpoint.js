@@ -86,7 +86,7 @@ const getMachinesOfUser = (req, res) => {
         var mRAM = words[4];
         var mIP = words[5];
         var mStatus = words[7];
-        var mCourse = "hardcoded";
+        var mCourse = "";
        machines.push(new Machine(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse));
     }
         

@@ -7,7 +7,7 @@
                 <input class="py-2 rounded-sm" type="text" name="username" id="username" v-model="username">
                 <label class="text-white text-lg" for="password">Password</label>
                 <input class="py-2 rounded-sm" type="password" name="password" id="password" v-model="password">
-                <input class="py-2 rounded-sm" type="submit" value="Login" v-on:click="loginUser">
+                <input class="py-2 rounded-sm" type="submit" value="Login" v-on:click="authlogin()">
             </div>
         </div>
     </div>
@@ -17,6 +17,7 @@
 
 <script>
 import axios from 'axios';
+// import {login} from '../utils/auth';
 export default {
     data() {
         return {
@@ -30,7 +31,7 @@ export default {
             if(this.username == '' || this.password == '') {
                 alert('Please fill in all fields');
             } else {
-                const response = await axios.post('http://200.200.200.102:3000/loginUser', {
+                const response = await axios.post('http://localhost:3000/loginUser', {
                     username: this.username,
                     password: this.password,
                 });
@@ -43,6 +44,10 @@ export default {
                 }
             }
         },
+
+    authlogin() {
+        this.$auth.loginWithRedirect();
+    },
     }
 }
 </script>
