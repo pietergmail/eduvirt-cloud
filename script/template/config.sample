@@ -1,0 +1,483 @@
+# This is a sample configuration file containing all supported options
+# Please do not try and use this file itself for a guest
+# For any option that contains a number in the name, such as "network0_type",
+# you can add additional devices of that type by creating a new set of
+# variables using the next number in sequence, e.g "network1_type"
+#
+# Please make sure all option names are specified in lowercase and
+# at the beginning of the line. If there is any whitespace before
+# the option name, the line will be ignored.
+# The '#' character signifies the start of a comment, even within
+# double-quotes, and so cannot be used inside any values.
+
+# loader
+# Specify the loader to use for the guest. This can either be
+# one of the original bhyve loaders (bhyveload/grub), or
+# you can specify to use uefi firmware to load the guest
+#
+# Valid Options: bhyveload,grub,uefi,uefi-csm
+#
+loader=""
+
+# bhyveload_loader
+# If using bhyveload, this option can be used to specify the path
+# to the loader inside the guest to use
+#
+# the default is /boot/userboot.so
+#
+bhyveload_loader=""
+
+# loader_timeout
+# By default bhyveload & grub-bhyve will wait 3 seconds before booting the default
+# option. This setting allows you to either reduce the timeout to
+# make boot faster, or increase it so that it's easier to access
+# the grub console before it starts booting
+#
+loader_timeout="3"
+
+# cpu (required)
+# specify the number of cpu cores to give to the guest
+#
+cpu="1"
+
+# cpu_sockets
+# manually configure the number of sockets that bhyve should
+# expose to the guest.
+# note that sockets*cores*threads should equal the above cpu count
+#
+cpu_sockets="1"
+
+# cpu_cores
+# the number of cores to create per physical processor
+#
+cpu_cores="1"
+
+# cpu_threads
+# the number of cpu threads per core
+#
+cpu_threads="1"
+
+# memory (required)
+# specify the amount of ram to give to the guest. This can be
+# followed by M or G.
+#
+memory="512M"
+
+# wired_memory
+# All requested memory should be wired to the guest
+#
+wired_memory="no"
+
+# hostbridge
+# Allows you to specify the type of hostbridge to use for the
+# guest hardware. This can usually be left as default. The
+# additional options are 'amd', for a hostbridge that advertises
+# itself as AMD hardware and 'none' for no hostbridge. Note
+# that there is no requirement to use the 'amd' hostbridge if
+# you host has an AMD processor
+#
+# Default: standard
+# Valid Options: standard,amd,none
+#
+hostbridge=""
+
+# ignore_bad_msr
+# Instruct bhyve to ignore accesses to model specific registers
+# that are not implemented in the current CPU.
+# This appears to be required for AMD processors when using
+# some guest operating systems. Note that this is enabled
+# by default when running a UEFI guest
+#
+ignore_bad_msr="no"
+
+# bhyve_options
+# any additional bhyve command line options
+#
+bhyve_options="-p 1:1"
+
+# comports
+# This allows you to define the com ports which should be available.
+# By default only com1 is connected, and can be accessed using the
+# 'vm console' command. If more than one com port is specified, you
+# can choose the port to connect to by running 'vm console guest com1|com2'.
+# When using the 'vm console' command, if no com port is specified,
+# you are connected to the first port listed in this string.
+#
+# Default: com1
+# Valid Options: com1,com2,com1 com2,com2 com1
+#
+comports=""
+
+# utctime
+# bhyve normally sets the guests RTC to the host's localtime. The utctime
+# option causes bhyve to try and configure the guests RTC to UTC.
+#
+# As of vm-bhyve 1.2, this setting defaults to yes, giving the guest a
+# UTC realtime clock. I consider this more consistent, and is actually
+# expected by some guests. The guest should show correct time as long as
+# its timezone is configured correctly. Note that the following command
+# is useful to verify the time of a guest's "hardware" RTC:
+# bhyvectl --vm={guestname} --get-rtc-time
+#
+# To revert to the default bhyve behaviour, explicitly set this to off/no/false/0
+#
+# Additionally it is generally advised to run a time sync daemon, such as ntpd
+# in the guest, as each OS will have its own clock that will inevitably drift.
+#
+# Default: yes
+#
+utctime="no"
+
+# debug
+# Set to a value other than [empty]/no/off/false/0 to run vm-bhyve in debug mode.
+# In this mode, all output from the bhyve process is written to
+# $vm_dir/{guest}/bhyve.log. This is useful if the guest is crashing or
+# exiting abnormally as the log will contain any output from bhyve.
+#
+# Default: no
+#
+debug=""
+
+# uuid
+# This is set automatically by vm-bhyve when creating a new guest. Normally
+# bhyve assigns a UUID at runtime based on host and guest name. This
+# option allows you to specify a fixed UUID that will always be used. Remove
+# this or leave blank to return to the normal bhyve behaviour.
+#
+uuid=""
+
+# ahci_device_limit
+# By default all ahci devices (ahci-hd/ahci-cd) are configured on independent
+# slots with their own controller. In FreeBSD 12 it's possible to put up
+# to 32 devices on each controller. This setting allows you to configure
+# the number of devices vm-bhyve will allocate on each controller.
+#
+# Valid Options: 2-32
+# Default: 1
+#
+ahci_device_limit="8"
+
+# disk0_type (required)
+# This specifies the emulation type for disk0. Please note that each disk requires
+# at least a type and name.
+#
+# Valid Options: virtio-blk,ahci-hd,ahci-cd,nvme
+#
+disk0_type="virtio-blk"
+
+# disk0_dev
+# The type of device used as the backing store for this disk. The default is 'file',
+# which means a sparse file is used. This file is stored in the guest's directory.
+# For the zvol options, the zvol must be directly under the guest dataset.
+# There is also a 'custom' option, in which case the disk name should be the full path
+# to the file or device you want to use.
+# For 'iscsi', the disk name must be set to a unique target and lun combination
+# when matched against iscsictl -L output.
+#
+# Default: file
+# Valid Options: file,zvol,sparse-zvol,custom,iscsi
+#
+disk0_dev=""
+
+# disk0_name (required)
+# The name of the file or zvol for this disk. If the device type is 'custom', it should
+# be the full path to whichever device or file you want to use
+#
+# This value is translated to a path as follows, based on disk0_dev
+#
+# DEVICE TYPE        DISK NAME      BHYVE PATH USED
+# file              'disk0.img' -> '$vm_dir/$name/disk0.img'
+# zvol|sparse-zvol  'disk0'     -> '/dev/zvol/pool/dataset/path/guest/disk0'
+# custom            '/dev/da10' -> '/dev/da10'
+# iscsi             'tgt[/lun]' -> '/dev/daNN' (lun defaults to 0 if omitted) 
+#
+disk0_name="disk0.img"
+
+# disk0_opts
+# A comma separated list of additional options for the specified disk.
+# The available options are listed below. See the bhyve(8) man page for
+# more details
+#
+# Valid Options: direct,nocache,ro,sectorsize=logical[/physical]
+#
+disk0_opts=""
+
+# disk0_size
+# When a new guest is created, vm will create a 20G disk image by
+# default. This option can be used to specify a different size
+# for this disk.
+#
+# The size of the first disk (disk0) can also be overridden
+# using the -s option to 'vm create'.
+#
+# NOTE: This option is only supported in template files. This
+# setting serves no purpose in real guests and would become
+# misleading if a disk were resized manually. When provisioning
+# a new guest, all 'diskX_size' options are stripped from
+# its configuration file.
+#
+disk0_size="50"
+
+# network0_type
+# This specifies the emulation type to use for the first network interface.
+# Networking is not required, although this field is mandatory if you do want
+# to add an interface
+#
+# Valid Options: virtio-net,e1000
+#
+network0_type="virtio-net"
+
+# network0_switch
+# The name of the virtual switch to connect this interface to. When starting the
+# guest, if this switch cannot be found, or no switch is specified, the interface
+# is still created but will not be connected to anything.
+#
+# All default templates use a switch called 'public', although it's perfectly
+# reasonable to use other switch names that make sense in your environment
+#
+network0_switch="public"
+
+# network0_device
+# If you do not want vm-bhyve to create a new interface, but use an existing
+# one, enter the interface name here. This allows you to preconfigure the network
+# device in a custom configuration, then instruct vm-bhyve to use that rather
+# than create all interfaces dynamically at run time.
+#
+network0_device=""
+
+# network0_mac
+# This allows you to specify a fixed mac address for this interface inside the guest.
+# When a guest is run, vm-bhyve will automatically assign a mac address for each
+# interface if one is not specified. This mac address is then written to the
+# configuration file using this option. If we didn't do this guests might get
+# a different mac if the tap device changes (very possible in vm-bhyve as all
+# tap devices are dynamic by default). Guests like Windows treat an interface
+# with a different mac as a new interface, with a new set of default settings.
+#
+network0_mac=""
+
+# network0_span
+# Set to any value other than [empty]/off/false/no/0 to create the specified
+# port as a SPAN port rather than as an ordinary bridge member.
+#
+# NOTE: Does not work with VALE switches yet.
+#
+network0_span="no"
+
+# passthru0
+# Add a pass-through PCI device to the virtual machine. This allows the guest
+# to access a hardware device no differently than if it was running on bare
+# metal. The value of this option is the B/S/F of the appropriate device.
+# e.g "3/0/0"
+#
+# The slot to use in bhyve can be specified as below. This example will
+# force the host device 6/0/0 to use slot 2:0 in the guest
+#
+# passthru0="6/0/0=2:0"
+#
+# Please note that in order to stop the bhyve host from attaching to the device,
+# there are some steps required to reserve the device in /boot/loader.conf.
+#
+# The 'vm passthru' command provides a convinient way of seeing the BSF of each
+# device in your system, and whether any have been reserved ready for use
+# in bhyve
+#
+# More details can be found in the FreeBSD bhyve wiki pages
+#
+passthru0=""
+
+# start_slot
+# The slot to start creating devices at inside the guest. Note that
+# we create disk devices first, and some UEFI guests require disks to
+# be in slots 3-6. The default is 4, with 3 being left available for
+# an installation ISO
+#
+start_slot="4"
+
+# install_slot
+# The slot to use for an installation ISO. By default this is 3,
+# which is the first available slot with the original UEFI firmware.
+# Using this makes sure the ISO is the first device, and leaves
+# 4-6 available for hd devices. Being able to change this may
+# be useful for non-UEFI guests, especially if a passthru device
+# requires this slot.
+#
+install_slot="3"
+
+# virt_random
+# Set to any value other than [empty]/off/false/no/0 to create
+# a virtio-rnd device for the guest
+#
+virt_random=""
+
+# graphics
+# Set to a value other than [empty]/off/false/no/0 to enable
+# the bhyve frame buffer device. This creates a graphics console
+# in the guest, which is accessible using vnc
+#
+# By default this is set at 800x600, and we find an available vnc
+# port starting at 5900. The port can be seen in vm list|info output.
+#
+graphics="yes"
+
+# graphics_port
+# Use this option to specify a fixed network port that the vnc service
+# should listen on. If specifying port numbers manually, please make
+# sure all guests have a unique port.
+#
+graphics_port="5999"
+
+# graphics_listen
+# By default, the vnc service will listen on 0.0.0.0, so you can connect by
+# using any IP address assigned to the bhyve host. Use this option if you
+# want to specify a specific IP address that the service should bind to
+#
+# Default: 0.0.0.0
+#
+graphics_listen="10.0.0.1"
+
+# graphics_res
+# This allows you to specify a resolution for the graphical console.
+# Pleas note only the below options are supported
+#
+# Default: 800x600
+# Valid Options: 1920x1200,1920x1080,1600x1200,1600x900,1280x1024,1280x720,1024x768,800x600,640x480
+#
+graphics_res="800x600"
+
+# graphics_wait
+# Set to yes in order to make guest boot wait for the VNC console
+# to be opened. This can help when installing operating systems
+# that require immediate keyboard input (such as a timed 'enter setup'
+# screen). The default setting of auto will add the wait option
+# if the guest is run in install mode. Note that in auto mode
+# the wait option will only be present on the first boot. If you
+# need the guest to wait on every boot during install, the yes
+# option should be used.
+#
+# Valid Options: no,yes,auto
+#
+graphics_wait="auto"
+
+# graphics_vga
+# valid options for this are on/off/io. io is the default
+# please see the bhyve man page for details on this option
+#
+graphics_vga="io"
+
+# xhci_mouse
+# When graphics are enabled, a PS2 mouse is created by default. This
+# doesn't track very well, and can be replaced with an XHCI mouse
+# by setting this option to yes. Please note only some guests support
+# this mouse
+#
+xhci_mouse="yes"
+
+# virt_console0
+# create up to 16 virtual console devices
+#
+# the value can be yes|on|1 to create a numbered port. FreeBSD < 12
+# only supports virtio consoles configured in this way
+#
+# For guests with named console support (FreeBSD 12+, Linux?), the
+# value can be the name of the port to create. The name "org.freenas.byhve-agent"
+# can be useful as it ties in with tools written to make use of the
+# FreeNAS bhyve-agent interface.
+#
+virt_console0="org.freenas.byhve-agent"
+
+# grub_install0
+# use this to specify grub commands that should be run inside the
+# guest when installing.
+#
+# If more than one command is needed, you can specify this option
+# multiple times, incrementing the number on the end each time
+#
+grub_install0="..."
+grub_install1="..."
+
+# grub_run0
+# use this to specify grub commands to run when starting the guest
+# normally
+#
+grub_run0="linux ..."
+grub_run1="initrd ..."
+
+# grub_run_partition
+# by default 'hd0,1' is specified as the root when running grub-bhyve.
+# to force 'hd0,X' instead, set this to 'X'.
+# in most cases the default of partition 1 is correct, although
+# this settings allows you to force grub-bhyve to look on a different
+# partition if required.
+#
+grub_run_partition="msdos1"
+
+# grub_run_dir
+# by default grub-bhyve will look in /boot/grub for the guests
+# grub config file. use this to specify an alterate path
+#
+# Default: /boot/grub (set by grub-bhyve)
+#
+grub_run_dir="/grub"
+
+# grub_run_file
+# by default grub-bhyve will look for a file called grub.cfg containing
+# the guests grub configuration. use this to specify an alternate filename
+#
+# Default: grub.cfg (set by grub-bhyve)
+#
+grub_run_file="grub.conf"
+
+# zfs_dataset_opts
+# A list of ZFS properties to set on any new dataset created for this
+# guest. Multiple properties can be specified, separated by a space.
+# As a dataset is created while provisioning a new guest, this option
+# makes most sense when specified inside a template.
+#
+# Please note that spaces are currently not supported in the field values
+#
+zfs_dataset_opts=""
+
+# zfs_zvol_opts
+# A list of ZFS properties to set on any new ZVOL created for this guest.
+# As with dataset_opts, this should to be set inside the guest template
+# if you need the properties to apply to the guest as it is created.
+# Some options such as volblocksize cannot be changed once the guest
+# disk has been created.
+#
+zfs_zvol_opts=""
+
+# prestart
+# specify a script to run when the guest starts
+# if just a name rather than full path is provided, we look in the guest directory
+# the script must be executable and is run in the following way -
+#
+# {scriptname} <guest-name> [zfs-dataset?]
+#
+# we also change directory to <guest-path> before running the script
+# note that if taking guest snapshots, the -f option must be used as although
+# the guest is technically stopped when this script runs, vm-bhyve still has it
+# locked
+#
+prestart="myscript.pl"
+
+# priority
+# set a priority (nice value) for a guest
+# valid range is -20 (highest) to 20 (only run when system idle), with
+# 0 being the default system priority
+#
+priority="10"
+
+# limit_pcpu
+# use rctl to limit guest to the specified cpu percentage
+#
+limit_pcpu=""
+
+# limit_rbps, limit_wbps, limit_riops, limit_wiops
+# Configure additional rctl limits available on 11+
+# These limit read/write throughput and iops
+#
+limit_rbps=""
+limit_wbps=""
+limit_riops=""
+limit_wiops=""
