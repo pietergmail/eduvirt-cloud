@@ -11,6 +11,6 @@ npm install
 npm run build
 
 cd ..
-cd web-frontend
+cd web-backend
 npm install
 npm run build
