@@ -36,16 +36,16 @@ Je kan open-id activeren door deze file aan te passen
 geen idee Ilias heeft dees stuk gedaan
 web-frontend/src/auth/authGuard.js
 => uncomment hele file.
----
+
 web-frontend/src/auth/index.js
 => unncomment hele file, veranderd redirectUri naar juiste callback URL.
----
+
 web-frontend/src/main.js
 => uncomment OpenID Connect block.
----
+
 web-frontend/src/router/index.js
 => uncomment OpenID Conntect import en bij elke path router de beforeEnter uncommenten.
----
+
 web-frontend/auth_config.json
 => hier vul je de domain en clientId van je Auth0 Applicatie in.
 
