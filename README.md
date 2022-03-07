@@ -23,9 +23,11 @@ Back-end en front-end hebben hardcoded ip-adressen.
 Deze moeten aangepast worden om het project te kunnen gebruiken.
 Deze files zijn:
 
+```cs
 * web-frontend/src/views/AddMachine.vue 
-* rest moe Illias aanvullen
-* ...
+* web-frontend/src/views/Login.vue 
+* web-frontend/src/views/Machines.vue
+```
 
 ## open-id
 Open-id code staat klaar maar is nog niet geimplementeerd.
