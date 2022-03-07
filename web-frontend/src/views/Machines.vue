@@ -21,7 +21,13 @@
           <p>{{machine.mIP}}</p>
           <p>{{machine.mStatus}}</p>
         </div> 
-        <div class="bg-yellow-200 p-4 text-center">{{machines}}</div>
+        <div class="font-bold text-center text-xl mb-8 text-red-500 mt-20" v-if="machines.length == 0 ">
+          You have no machines <br>
+          <a class="text-blue-800" href="/addmachine">create one</a>
+        </div>
+        <!-- dev -->
+        <!-- <div class="bg-yellow-200 p-4 text-center">{{machines}}</div> -->
+        <!-- dev -->
     </div>
   </div>
 </template>
@@ -37,15 +43,19 @@ export default {
       data() {
         return {
           machines: [],
+          arr: ["102", "124", "124", "124"],
         };
     },
 
       methods: {
         async getVMS() {
           console.log('Getting VM list...');
-          const response = await axios.post('http://200.200.200.102:3000/machines', {"username": sessionStorage.getItem('username')})
-          console.log(response.data);
-          this.machines = response.data;
+          // const response1 = await axios.post('http://200.200.200.102:3000/machines', {"username": sessionStorage.getItem('username')})
+          for (let index = 0; index < this.arr.length; index++) {
+            const response = await axios.post('http://200.200.200.' + this.arr[index] +':3000/machines', {"username": sessionStorage.getItem('username')})
+            console.log(response.data);
+            this.machines.push(response.data)
+          }
         },
     },
 

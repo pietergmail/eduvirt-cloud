@@ -59,7 +59,8 @@ export default {
 
   mounted() {
     this.username = sessionStorage.getItem('username');
-      console.log(sessionStorage.getItem('username'));
+    console.log("U bent ingelogt als: %c" + sessionStorage.getItem('username'), "color: green; font-weight: bold;");
+    console.log("%cHIER NIKS VERANDEREN", "color:red");
   },
 };
 </script>

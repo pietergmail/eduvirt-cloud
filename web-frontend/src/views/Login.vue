@@ -36,7 +36,6 @@ export default {
                 });
                 if(response.data.username === this.username && response.data.password === this.password) {
                     sessionStorage.setItem("username", response.data.username);
-                    process.env.USERNAME = response.data.username;
                    this.$router.push("/home");
                 } else{
                     alert('Wrong username or password');

@@ -1,6 +1,7 @@
 var exec = require('child_process').exec;
 
 
+// Model voor een machine
 class Machine {
     constructor(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse)
     {
@@ -13,22 +14,27 @@ class Machine {
         this.mCourse = mCourse;
     }
 }
+// 
 
 // hardcoded for now
+// lijst met alle zelf gemaakte users
 const users = 
 [
 {"username": "user1", "password": "pass1", "machines": []}
 ,{"username": "admin", "password": "admin", "machines": []}
 ];
+
+// array met alle mogelijke vakken
 const courses = [{"courseName": "Netwerken-1"},{"courseName": "Netwerken-2"},{"courseName": "Systeembeheer"}];
+// array met alle mogelijke templates
 const templates = [{"name": "Windows-10"},{"name": "Windows-Server-2022"},{"name": "Ubuntu"}, {"name": "FreeBSD"}];
 
 
-const defaultMachineUser = users.find(user => user.username === "user1");
-defaultMachineUser.machines.push(new Machine("DefaultOS", "defaultloader", "2", "8G", "192.0.0.1", "running", "defaultcourse"));
+// const defaultMachineUser = users.find(user => user.username === "user1");
+// defaultMachineUser.machines.push(new Machine("DefaultOS", "defaultloader", "2", "8G", "192.0.0.1", "running", "defaultcourse"));
+// const defaultMachineAdmin = users.find(user => user.username === "admin");
+// defaultMachineAdmin.machines.push(new Machine("DefaultOS", "defaultloader", "2", "8G", "192.0.0.1", "running", "Admin"));
 
-const defaultMachineAdmin = users.find(user => user.username === "admin");
-defaultMachineAdmin.machines.push(new Machine("DefaultOS", "defaultloader", "2", "8G", "192.0.0.1", "running", "Admin"));
 // hardcoded for now
 
 
@@ -36,7 +42,7 @@ defaultMachineAdmin.machines.push(new Machine("DefaultOS", "defaultloader", "2",
 
 
 
-
+// Methode om een user in the loggen
 const loginUser = (req, res) => {
     const user = users.find(user => user.username === req.body.username && user.password === req.body.password);
     if (user) {
@@ -46,37 +52,46 @@ const loginUser = (req, res) => {
     }
 };
 
+// Methode om alle users terug te krijgen
 const getUsers = (req, res) => {
     res.send(users);
 };
 
+// Methode om een user te krijgen op basis van de username
 const getUserWithUsername = (req, res) => {
     const user = users.find(user => user.username === req.body.username);
     res.send(user.machines);
 };
 
+// Methode om de array met mogelijke courses te krijgen
 const getCourses = (req, res) => {
     res.send(courses);
 };
 
+// Methode om de array met mogelijke templates te krijgen
 const getTemplates = (req, res) => {
     res.send(templates);
 };
 
 
+// Methode die alle machines krijgen van een user met de username, deze methode voert een bash commando uit dat alle machines grep't van de user
 const getMachinesOfUser = (req, res) => {
 
-    const user = users.find(user => user.username === req.body.username);
+    // const user = users.find(user => user.username === req.body.username);
+
+    // exec bash commando om alle machines van de user op te halen
     exec('vm list | grep ' + req.body.username + ' | sed "s/  */ /g"',
     function (error, stdout, stderr) {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
 
+    // hardcoded machines om te testen
     //   stdout = "user1_Ubuntu default uefi 2 8G - No Stopped\n" +
     //   "user1_Ubuntu default uefi 2 8G - No Stopped"
 
+    // altijd de machine array van de user leegmaken
     var machines = [];
-    //   get lines of stdout and put every word in new machine
+    //elke lijn uit de output van het bash commando wordt hier geparsed in een nieuwe machine array die dan naar de website word gestuurd
     var lines = stdout.split("\n");
     for (var i = 0; i < lines.length; i++) {
         var words = lines[i].split(" ");
@@ -98,14 +113,14 @@ const getMachinesOfUser = (req, res) => {
 };
 
 
-// Nomad komt hier in
+// Methode om een machien aan te maken, deze methode voert een bash commando uit dat de machine aanmaakt doormiddel van de parameters(machinenaam, username, vak)
 const createMachine = (req, res) => {
     const user = users.find(user => user.username === req.body.username);
     user.machines.push({"mName": req.body.mName, "mCourse": req.body.mCourse});
 
     
 
-    // script to create machine
+    // exec bash commando om machine aan te maken
     exec('bash /home/t/eduvirt-cloud/web-backend/nomad/script.sh ' + req.body.mName + ' ' + req.body.username + ' ' + req.body.mCourse,
   function (error, stdout, stderr) {
     console.log('stdout: ' + stdout);
@@ -119,7 +134,9 @@ const createMachine = (req, res) => {
     res.send(users);
 };
 
-  
+
+
+// exporteren van de modules naar ./server.js  
 module.exports = {
     getUsers,
     getUserWithUsername,
