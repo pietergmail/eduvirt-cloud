@@ -53,14 +53,7 @@ export default {
           // const testresponse = await axios.post('http://localhost:3000/machines', {"username": sessionStorage.getItem('username')})
           for (let index = 0; index < this.arr.length; index++) {
             const response = await axios.post('http://200.200.200.' + this.arr[index] +':3000/machines', {"username": sessionStorage.getItem('username')})
-            if(index === 0)
-            {
-              this.machines = response.data;
-            }
-            else
-            {
-              this.machines = this.machines.concat(response.data);
-            }
+            this.machines = this.machines.concat(response.data);
             console.log(this.machines)
           }
         },
