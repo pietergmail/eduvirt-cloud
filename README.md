@@ -40,7 +40,7 @@ web-frontend/src/auth/authGuard.js
 -> uncomment hele file.
 
 web-frontend/src/auth/index.js
--> uncomment hele file, verander redirectUri naar juiste callback URL.
+-> uncomment hele file verander redirecrUri naar juiste callback URL.
 
 web-frontend/src/main.js
 -> uncomment OpenID Connect block.
