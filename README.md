@@ -19,13 +19,16 @@ bash install.sh
 ```
 
 ## ip adressen
-Back-end en front-end hebben hardcoded ip-adressen.
-Deze moeten aangepast worden om het project te kunnen gebruiken.
+Het project in huidige status heeft hardcoded ip-adressen.
+Deze moeten aangepast worden naar de juiste IP's om het project te kunnen gebruiken.
 Deze files zijn:
 
-* web-frontend/src/views/AddMachine.vue 
-* rest moe Illias aanvullen
-* ...
+De axios post en get methodes:
+```cs
+web-frontend/src/views/AddMachine.vue 
+web-frontend/src/views/Login.vue 
+web-frontend/src/views/Machines.vue
+```
 
 ## open-id
 Open-id code staat klaar maar is nog niet geimplementeerd.
@@ -33,7 +36,22 @@ Om open-id te gebruiken moet er een domein en https beschikbaar zijn.
 Dit is nog niet uitgebreid getest aangezien wij geen domein hadden.
 Je kan open-id activeren door deze file aan te passen
 ```cs
-geen idee Ilias heeft dees stuk gedaan
+web-frontend/src/auth/authGuard.js
+-> uncomment hele file.
+
+web-frontend/src/auth/index.js
+-> uncomment hele file verander redirecrUri naar juiste callback URL.
+
+web-frontend/src/main.js
+-> uncomment OpenID Connect block.
+
+web-frontend/src/router/index.js
+-> uncomment OpenID Conntect import en bij elke path router de beforeEnter uncommenten.
+
+web-frontend/auth_config.json
+-> hier vul je de domain en clientId van je Auth0 Applicatie in.
+
+
 ```
 ## windows
 De windows iso-files worden niet automatisch gedownload en moeten zelf worden toegevoegd.
