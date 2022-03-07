@@ -4,7 +4,10 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Machines from '../views/Machines.vue'
 import AddMachine from '../views/AddMachine.vue'
-import { authGuard } from "../auth/authGuard";
+
+// OpenID Connect
+
+// import { authGuard } from "../auth/authGuard";
 
 Vue.use(VueRouter)
 
@@ -26,19 +29,19 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
-    beforeEnter: authGuard
+    // beforeEnter: authGuard
   },
   {
     path: '/add_machine',
     name: 'add_machine',
     component: AddMachine,
-    beforeEnter: authGuard
+    // beforeEnter: authGuard
   },
   {
     path: '/machines',
     name: 'machines',
     component: Machines,
-    beforeEnter: authGuard
+    // beforeEnter: authGuard
   },
   {
     path: '/about',

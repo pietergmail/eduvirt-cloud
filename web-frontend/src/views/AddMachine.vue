@@ -75,13 +75,13 @@ export default {
         
         async getCourses() {
             console.log('Getting Courses...');
-            const response = await axios.get('http://localhost:3000/courses');
+            const response = await axios.get('http://200.200.200.102:3000/courses');
             this.courses = response.data;
         },
 
         async getTemplates() {
             console.log('Getting Templates...');
-            const response = await axios.get('http://localhost:3000/templates');
+            const response = await axios.get('http://200.200.200.102:3000/templates');
             this.templates = response.data;
         },
     },
