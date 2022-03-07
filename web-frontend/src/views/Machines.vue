@@ -43,7 +43,7 @@ export default {
       data() {
         return {
           machines: [],
-          arr: ["102", "124", "124", "124"],
+          arr: ["102", "124"],
         };
     },
 
