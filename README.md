@@ -33,12 +33,11 @@ Om open-id te gebruiken moet er een domein en https beschikbaar zijn.
 Dit is nog niet uitgebreid getest aangezien wij geen domein hadden.
 Je kan open-id activeren door deze file aan te passen
 ```cs
-geen idee Ilias heeft dees stuk gedaan
 web-frontend/src/auth/authGuard.js
 -> uncomment hele file.
 
 web-frontend/src/auth/index.js
--> uncomment hele file, veranderd redirectUri naar juiste callback URL.
+-> uncomment hele file, verander redirectUri naar juiste callback URL.
 
 web-frontend/src/main.js
 -> uncomment OpenID Connect block.
