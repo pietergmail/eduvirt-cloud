@@ -42,7 +42,7 @@ export default {
   },
       data() {
         return {
-          machines: [],
+          machines: '',
           arr: ["102", "124", "124", "124"],
         };
     },
@@ -50,12 +50,13 @@ export default {
       methods: {
         async getVMS() {
           console.log('Getting VM list...');
-          // const response1 = await axios.post('http://200.200.200.102:3000/machines', {"username": sessionStorage.getItem('username')})
+          // const testresponse = await axios.post('http://localhost:3000/machines', {"username": sessionStorage.getItem('username')})
           for (let index = 0; index < this.arr.length; index++) {
             const response = await axios.post('http://200.200.200.' + this.arr[index] +':3000/machines', {"username": sessionStorage.getItem('username')})
             console.log(response.data);
-            this.machines=(response.data)
-	console.log(this.machines)
+            this.machines += response.data;
+
+            console.log(this.machines)
           }
         },
     },
