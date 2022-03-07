@@ -54,7 +54,8 @@ export default {
           for (let index = 0; index < this.arr.length; index++) {
             const response = await axios.post('http://200.200.200.' + this.arr[index] +':3000/machines', {"username": sessionStorage.getItem('username')})
             console.log(response.data);
-            this.machines.push(response.data)
+            this.machines=(response.data)
+	console.log(this.machines)
           }
         },
     },
