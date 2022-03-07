@@ -19,14 +19,15 @@ bash install.sh
 ```
 
 ## ip adressen
-Back-end en front-end hebben hardcoded ip-adressen.
-Deze moeten aangepast worden om het project te kunnen gebruiken.
+Het project in huidige status heeft hardcoded ip-adressen.
+Deze moeten aangepast worden naar de juiste IP's om het project te kunnen gebruiken.
 Deze files zijn:
 
+De axios post en get methodes:
 ```cs
-* web-frontend/src/views/AddMachine.vue 
-* web-frontend/src/views/Login.vue 
-* web-frontend/src/views/Machines.vue
+web-frontend/src/views/AddMachine.vue 
+web-frontend/src/views/Login.vue 
+web-frontend/src/views/Machines.vue
 ```
 
 ## open-id
