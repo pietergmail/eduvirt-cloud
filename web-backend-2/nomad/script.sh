@@ -16,7 +16,7 @@ then
         name=${lastName:: -1} #remove last char from name
         newName="${name}$((lastchar + 1))" #add new last char to name
 	name=$newName
-	sed -i .bak "s/4901/$((VncPort + 1))/" "/zroot/vm/$templateName/$templateName.conf"
+	sed -i .bak "s/$VncPort/$((VncPort + 1))/" "/zroot/vm/$templateName/$templateName.conf"
 	rm /zroot/vm/$templateName/$templateName.conf.bak
 	vm clone $templateName $name
     else
