@@ -3,29 +3,15 @@
 # EXECUTE ALS ROOT
 # Script voor het opzetten van bhyve in freebsd
 
-#Eerst moeten we bhyve in kernel mode laden.
-kldload vmm
-
-#in rc.conf de volgende lijn toevoegen zodat we niet telkens de lijn hierboven moeten uitvoeren bij het starten van de computer. Kijk eventueel zelf na of in deze config file deze lijn al bestond. Zo ja, voeg dan zelf "*** vmm" toe aan de parameter en verwijder mogelijke duplicate lijnen.
-
-echo 'if_bridge_load="YES"' >> /boot/loader.conf
-echo 'if_tap_load="YES"' >> /boot/loader.conf
-echo 'nmdm_load="YES"' >> /boot/loader.conf
-echo 'vmm_load="YES"' >> /boot/loader.conf
-
-sysctl net.link.tap.up_on_open=1
-sysctl net.link.bridge.ipfw=1
-sysctl net.link.bridge.pfil_bridge=0
-sysctl net.link.bridge.pfil_member=0
-
+#Eerst moeten we bhyve in kernel mode laden en dus toevoegen aan rc.conf.
 sysrc kld_list="vmm"
-sysrc vm_list=""
+kldload vmm
 
 pkg install -y vm-bhyve grub2-bhyve bhyve-firmware
 
 #nu gaan we gebruik maken van vm-bhyve en deze installeren.
 
-
+#Kijk eerst met het commando zfs list na wat uw pool zijn naam is, standaard zal dit zroot zijn maar moest het anders zijn moet dit aangepast worden. Indien u geen 1 pool te zien krijgt met zfs list heeft u waarschijnlijk het ufs filesysteem geinstalleerd. Dit moet zfs zijn
 zfs create zroot/vm
 
 sysrc vm_enable="YES"
@@ -35,9 +21,8 @@ vm init
 
 #kopieer de al bestaande templates naar de map foor bhyve om te gebruiken.
 
-mkdir -p zroot/vm/.templates
-
 vm switch create public
+# voeg hiermee de fysieke interface aan toe aan de public switch, kijk dit dus zelf na wat uw fysieke poort zijn naam is 
 vm switch add public le0
 
 cp -r template/* /zroot/vm/.templates/.
@@ -50,6 +35,7 @@ vm create -t freebsd -s 4G freebsd
 vm iso https://download.freebsd.org/ftp/releases/ISO-IMAGES/12.3/FreeBSD-12.3-RELEASE-amd64-bootonly.iso
 vm install [-f] myguest FreeBSD-11.2-RELEASE-amd64-bootonly.iso
 
+#De iso's van windows zal u zelf moeten kopieren en dan moeten installeren
 vm create -t windows10 -s 4G windows10
 
 vm create -t windowsServer -s 4G windowsServer 
