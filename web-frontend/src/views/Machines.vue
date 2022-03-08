@@ -143,7 +143,7 @@ export default {
             console.log(machinename + " on Server1 starting...");
           }
           else if (machinename.includes('Server2')){
-            await axios.post('http://200.200.200.' + this.arr[1] +':3000/start', {"mName": machinename})
+            await axios.post('http://200.200.200.' + this.arr[1] +':3000/startVM', {"mName": machinename})
             console.log(machinename + " on Server2 starting...");
           }
           else{
