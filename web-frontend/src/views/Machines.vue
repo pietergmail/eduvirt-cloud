@@ -136,15 +136,15 @@ export default {
 
         async startVM(mName) {
           console.log('Starting VM...');
-          console.log(mName);
-          console.log(this.mname);
-          if(this.mName.includes('Server1')){
-            await axios.post('http://200.200.200.' + this.arr[0] +':3000/startVM', {"mName": this.mName})
-            console.log(mName + " on Server1 starting...");
+          var machinename = mName;
+          console.log(machinename);
+          if(machinename.includes('Server1')){
+            await axios.post('http://200.200.200.' + this.arr[0] +':3000/startVM', {"mName": machinename})
+            console.log(machinename + " on Server1 starting...");
           }
-          else if (this.mName.includes('Server2')){
-            await axios.post('http://200.200.200.' + this.arr[1] +':3000/start', {"mName": this.mName})
-            console.log(mName + " on Server2 starting...");
+          else if (machinename.includes('Server2')){
+            await axios.post('http://200.200.200.' + this.arr[1] +':3000/start', {"mName": machinename})
+            console.log(machinename + " on Server2 starting...");
           }
           else{
             console.log('Error')
