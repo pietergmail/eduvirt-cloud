@@ -75,10 +75,13 @@
               <th scope="col" class="px-6 py-4 text-left">
                 Status
               </th>
+              <th scope="col" class="px-6 py-4 text-left">
+                Controls
+              </th>
             </tr>
           </thead>
-          <tbody class="bg-gray-400">
-            <tr class="border-b" v-for="machine in machines" :key="machine.id">
+          <tbody class="bg-gray-200">
+            <tr class="border-b" v-for="machine in 10" :key="machine.id">
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mName}}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mLoader}}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mCourse}}</td>
@@ -86,6 +89,10 @@
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mRAM}}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mIP}}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mStatus}}</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <button v-if="machine.mStatus == 'Stopped'" class="bg-green-300 w-full h-full" type="submit" v-on:click="startVM(machine.Mname)" >On</button>
+                <button v-if="machine.mStatus == 'Running'" class="bg-red-300 w-full h-full" type="submit" v-on:click="stopVM(machine.mName)">Off</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -125,6 +132,27 @@ export default {
             console.log(this.machines)
           }
         },
+
+        async startVM(mName) {
+          console.log('Starting VM...');
+          if(mName.contains('Server1')){
+            await axios.post('http://200.200.200.' + this.arr[0] +':3000/startVM', {"mName": mName})
+            console.log(mName + " on Server1 starting...");
+          }
+          else if (mName.contains('Server2')){
+            await axios.post('http://200.200.200.' + this.arr[1] +':3000/start', {"mName": mName})
+            console.log(mName + " on Server2 starting...");
+          }
+          else{
+            console.log('Error')
+          }
+        },
+
+        // async stopVM() {
+        //   console.log('Stopping VM...');
+        //   const response = await axios.post('http://200.200.200.' + this.arr[0] +':3000/stop', {"username": sessionStorage.getItem('username')})
+        //   console.log(response.data)
+        // },
     },
 
     mounted() {

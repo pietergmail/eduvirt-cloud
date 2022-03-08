@@ -23,4 +23,5 @@ app.post('/getUser', RoutingEndpoint.getUserWithUsername);
 app.post('/createMachine', RoutingEndpoint.createMachine);
 app.post('/machines', RoutingEndpoint.getMachinesOfUser);
 app.post('/loginUser', RoutingEndpoint.loginUser);
+app.post('startVM', RoutingEndpoint.startVM);
 // 

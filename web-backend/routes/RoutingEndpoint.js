@@ -27,7 +27,7 @@ const users =
 // array met alle mogelijke vakken
 const courses = [{"courseName": "Netwerken-1"},{"courseName": "Netwerken-2"},{"courseName": "Systeembeheer"}];
 // array met alle mogelijke templates
-const templates = [{"name": "Windows-10"},{"name": "Windows-Server-2022"},{"name": "Ubuntu"}, {"name": "FreeBSD"}];
+const templates = [{"name": "Windows10"},{"name": "WindowsServer2022"},{"name": "Ubuntu"}, {"name": "FreeBSD"}];
 
 
 // const defaultMachineUser = users.find(user => user.username === "user1");
@@ -95,14 +95,19 @@ const getMachinesOfUser = (req, res) => {
     var lines = stdout.split("\n");
     for (var i = 0; i < lines.length; i++) {
         var words = lines[i].split(" ");
-        var mName = words[0];
-        var mLoader = words[2];
-        var mCores = words[3];
-        var mRAM = words[4];
-        var mIP = words[5];
-        var mStatus = words[7];
-        var mCourse = "";
-       machines.push(new Machine(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse));
+        if(words[0] != ""){
+            res.send("no machines");
+        }
+        else {
+            var mName = words[0];
+            var mLoader = words[2];
+            var mCores = words[3];
+            var mRAM = words[4];
+            var mIP = words[5];
+            var mStatus = words[7];
+            var mCourse = "";
+           machines.push(new Machine(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse));
+        }
     }
         
       res.send(machines);
@@ -135,6 +140,18 @@ const createMachine = (req, res) => {
 };
 
 
+const startVM = (req, res) => {
+    exec('vm start' + req.body.mName,
+    function (error, stdout, stderr) {
+      console.log('stdout: ' + stdout);
+      console.log('stderr: ' + stderr);
+      if (error !== null) {
+        console.log('exec error: ' + error);
+      }
+      });
+    res.send(req.body.mName + " started");
+}
+
 
 // exporteren van de modules naar ./server.js  
 module.exports = {
@@ -145,4 +162,5 @@ module.exports = {
     createMachine,
     loginUser,
     getMachinesOfUser,
+    startVM,
   }
