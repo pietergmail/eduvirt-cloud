@@ -81,7 +81,7 @@ const getMachinesOfUser = (req, res) => {
 
     if(user.username.includes("admin")){
     // exec bash commando om alle machines van de user op te halen
-    exec('vm list | sed "s/  */ /g"',
+    exec('vm list | sed "s/  */ /g" | tail -n +2',
     function (error, stdout, stderr) {
       console.log('stdout: ' + stdout);
       console.log('stderr: ' + stderr);
