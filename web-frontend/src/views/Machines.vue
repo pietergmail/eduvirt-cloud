@@ -90,7 +90,7 @@
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mIP}}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mStatus}}</td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <button v-if="machine.mStatus == 'Stopped'" class="bg-green-300 w-full h-full" type="submit" v-on:click="startVM(machine.Mname)" >On</button>
+                <button v-if="machine.mStatus == 'Stopped'" class="bg-green-300 w-full h-full" type="submit" v-on:click="startVM(machine.mName)" >On</button>
                 <button v-if="machine.mStatus == 'Running'" class="bg-red-300 w-full h-full" type="submit" v-on:click="stopVM(machine.mName)">Off</button>
               </td>
             </tr>
