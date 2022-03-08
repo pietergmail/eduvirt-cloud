@@ -142,12 +142,12 @@ export default {
             axios.post('http://200.200.200.' + this.arr[0] +':3000/startVM', {"mName": machinename})
             console.log(machinename + " on Server1 starting...");
             // redirect to machines
-            this.$router.push('/machines');
+            window.location.href = '/machines';
           }
           else if (machinename.includes('Server2')){
             axios.post('http://200.200.200.' + this.arr[1] +':3000/startVM', {"mName": machinename})
             console.log(machinename + " on Server2 starting...");
-            this.$router.push('/machines');
+            window.location.href = '/machines';
           }
           else{
             console.log('Error')
