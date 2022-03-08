@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navigation />
-    <div class="flex flex-col mt-20 mx-auto sm:px-8 md:px-14 lg:px-24 xl:w-7/12 w-full animate-moveintotop">
+    <!-- <div class="mt-20 mx-auto w-full animate-moveintotop">
       <h2 class="font-bold text-center text-4xl mb-8 text-ucllblue">Your Machines</h2>
         <div class="grid grid-cols-7 bg-ucllred p-4 text-white text-center">
           <h3>Machine Name</h3>
@@ -21,14 +21,82 @@
           <p>{{machine.mIP}}</p>
           <p>{{machine.mStatus}}</p>
         </div> 
+        
         <div class="font-bold text-center text-xl mb-8 text-red-500 mt-20" v-if="machines.length == 0 ">
           You have no machines <br>
           <a class="text-blue-800" href="/add_machine">create one</a>
         </div>
-        <!-- dev -->
-        <!-- <div class="bg-yellow-200 p-4 text-center">{{machines}}</div> -->
-        <!-- dev -->
+
+        <div class="bg-yellow-200 p-4 text-center">{{machines}}</div>
+
+
+    </div> -->
+
+    <!-- <div class="container mx-auto mt-20">
+      <h2 class="font-bold text-center text-4xl mb-8 text-ucllblue">Your Machines</h2>
+      <div class="bg-gray-500 flex md:flex-row flex-col gap-4 flex-wrap text-white text-xl justify-between items-center text-center p-4">
+        <p>user1_Ubuntu</p> 
+        <p>default</p>
+        <p>uefi</p>
+        <p>2</p>
+        <p>8G</p>
+        <p>-</p>
+        <p>No</p>
+        <p>Stopped</p>
+      </div>
+    </div> -->
+
+    <div class="container mx-auto w-full h-96 mt-20">
+      <div class="xl:overflow-hidden overflow-x-auto flex flex-col justify-between">
+  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="overflow-hidden">
+        <table class="min-w-full">
+          <thead class="border-b bg-ucllred text-white">
+            <tr>
+              <th scope="col" class=" px-6 py-4 text-left">
+                Machine
+              </th>
+              <th scope="col" class="px-6 py-4 text-left">
+                Loader
+              </th>
+              <th scope="col" class="px-6 py-4 text-left">
+                Course
+              </th>
+              <th scope="col" class="px-6 py-4 text-left">
+                Cores
+              </th>
+              <th scope="col" class="px-6 py-4 text-left">
+                RAM
+              </th>
+              <th scope="col" class="px-6 py-4 text-left">
+                IP
+              </th>
+              <th scope="col" class="px-6 py-4 text-left">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-gray-400">
+            <tr class="border-b" v-for="machine in machines" :key="machine.id">
+              <td class="px-6 py-4 whitespace-nowrap">{{machine.mName}}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{machine.mLoader}}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{machine.mCourse}}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{machine.mCores}}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{machine.mRAM}}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{machine.mIP}}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{machine.mStatus}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+</div>
+    </div>
+
+
+
   </div>
 </template>
 

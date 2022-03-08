@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-
     <!-- block mobile apps -->
 
     <!-- <div class="sm:block hidden">
