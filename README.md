@@ -71,4 +71,4 @@ vm install windowsServer windowsServer.iso
 ```
 ## 2nd install
 Om een tweede server op te zetten worden dezelfde stappen gevolgd als het eerste, maar word het script install-2nd-server.sh gerunt.
-Deze zal de 2e back end runnen (web-backend-2), en dan kan deze zijn ip address in de array in de file (insert file hier) gezet worden.
+Deze zal de 2e back end runnen (web-backend-2), en dan kan deze zijn ip address in de array in de file /web-frontend/src/views/AddMachine.vue gezet worden.
