@@ -72,7 +72,7 @@
                     v-for="machine in machines"
                     :key="machine.id"
                   >
-                    <td class="px-6 py-4 whitespace-nowrap text-bold">
+                    <td class="px-6 py-4 whitespace-nowrap">
                       {{ machine.mName }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -96,7 +96,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                       <button
                         v-if="machine.mStatus == 'Stopped'"
-                        class="bg-green-300 w-full px-4 py-2.5 h-full"
+                        class="bg-green-300 px-12 py-2.5"
                         type="submit"
                         v-on:click="startVM(machine.mName)"
                       >
@@ -104,7 +104,7 @@
                       </button>
                       <button
                         v-if="machine.mStatus == 'Running'"
-                        class="bg-red-300 w-full px-4 py-2.5 h-full"
+                        class="bg-red-300 px-12 py-2.5"
                         type="submit"
                         v-on:click="stopVM(machine.mName)"
                       >
