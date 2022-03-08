@@ -56,19 +56,19 @@
               <table class="min-w-full">
                 <thead class="border-b bg-ucllred text-white">
                   <tr class="text-lg text-bold">
-                    <th scope="col" class="px-6 py-4 text-left">Machine</th>
-                    <th scope="col" class="px-6 py-4 text-left">Loader</th>
-                    <th scope="col" class="px-6 py-4 text-left">Course</th>
-                    <th scope="col" class="px-6 py-4 text-left">Cores</th>
-                    <th scope="col" class="px-6 py-4 text-left">RAM</th>
-                    <th scope="col" class="px-6 py-4 text-left">IP</th>
-                    <th scope="col" class="px-6 py-4 text-left">Status</th>
-                    <th scope="col" class="px-6 py-4 text-left">Controls</th>
+                    <th scope="col" class="px-6 py-4 text-center">Machine</th>
+                    <th scope="col" class="px-6 py-4 text-center">Loader</th>
+                    <th scope="col" class="px-6 py-4 text-center">Course</th>
+                    <th scope="col" class="px-6 py-4 text-center">Cores</th>
+                    <th scope="col" class="px-6 py-4 text-center">RAM</th>
+                    <th scope="col" class="px-6 py-4 text-center">IP</th>
+                    <th scope="col" class="px-6 py-4 text-center">Status</th>
+                    <th scope="col" class="px-6 py-4 text-center">Controls</th>
                   </tr>
                 </thead>
                 <tbody class="bg-gray-200">
                   <tr
-                    class="text-md"
+                    class="text-md text-center"
                     v-for="machine in machines"
                     :key="machine.id"
                   >
@@ -87,7 +87,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                       {{ machine.mRAM }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-bold">
+                    <td class="px-6 py-4 whitespace-nowrap">
                       {{ machine.mIP }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
