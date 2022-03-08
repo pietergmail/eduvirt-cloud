@@ -141,21 +141,35 @@ export default {
           if(machinename.includes('Server1')){
             axios.post('http://200.200.200.' + this.arr[0] +':3000/startVM', {"mName": machinename})
             console.log(machinename + " on Server1 starting...");
+            // redirect to machines
+            this.$router.push('/machines');
           }
           else if (machinename.includes('Server2')){
             axios.post('http://200.200.200.' + this.arr[1] +':3000/startVM', {"mName": machinename})
             console.log(machinename + " on Server2 starting...");
+            this.$router.push('/machines');
           }
           else{
             console.log('Error')
           }
         },
 
-        // async stopVM() {
-        //   console.log('Stopping VM...');
-        //   const response = await axios.post('http://200.200.200.' + this.arr[0] +':3000/stop', {"username": sessionStorage.getItem('username')})
-        //   console.log(response.data)
-        // },
+        stopVM(mName) {
+          console.log('Stopping VM...');
+          var machinename = mName;
+          console.log(machinename);
+          if(machinename.includes('Server1')){
+            axios.post('http://200.200.200.' + this.arr[0] +':3000/stopVM', {"mName": machinename})
+            console.log(machinename + " on Server1 stopping...");
+          }
+          else if (machinename.includes('Server2')){
+            axios.post('http://200.200.200.' + this.arr[1] +':3000/stopVM', {"mName": machinename})
+            console.log(machinename + " on Server2 stopping...");
+          }
+          else{
+            console.log('Error')
+          }
+        },
     },
 
     mounted() {

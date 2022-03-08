@@ -148,6 +148,18 @@ const startVM = (req, res) => {
     res.send(req.body.mName + " started");
 }
 
+const stopVM = (req, res) => {
+    exec('vm stop ' + req.body.mName,
+    function (error, stdout, stderr) {
+      console.log('stdout: ' + stdout);
+      console.log('stderr: ' + stderr);
+      if (error !== null) {
+        console.log('exec error: ' + error);
+      }
+      });
+    res.send(req.body.mName + " stopped");
+}
+
 
 // exporteren van de modules naar ./server.js  
 module.exports = {
@@ -159,4 +171,5 @@ module.exports = {
     loginUser,
     getMachinesOfUser,
     startVM,
+    stopVM,
   }

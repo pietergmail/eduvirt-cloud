@@ -19,8 +19,7 @@ app.get('/templates', RoutingEndpoint.getTemplates);
 app.post('/getUser', RoutingEndpoint.getUserWithUsername);
 app.post('/createMachine', RoutingEndpoint.createMachine);
 app.post('/machines', RoutingEndpoint.getMachinesOfUser);
-app.post('/startVM', RoutingEndpoint.startVM);
-
-
-// auth CRUD
 app.post('/loginUser', RoutingEndpoint.loginUser);
+app.post('/startVM', RoutingEndpoint.startVM);
+app.post('/stopVM', RoutingEndpoint.stopVM);
+// 
