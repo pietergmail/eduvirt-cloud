@@ -4,13 +4,13 @@ echo "intsalling bhyve..."
 bash script/Setup_freebsd_bhyve.sh
 
 echo "installing npm..."
-pkg install npm -y
+pkg install -y npm
 
 cd web-frontend
 npm install
-npm run build
+npm run serve
 
 cd ..
 cd web-backend
 npm install
-npm run build
+node server.js

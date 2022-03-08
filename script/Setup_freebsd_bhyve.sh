@@ -23,9 +23,9 @@ vm init
 
 vm switch create public
 # voeg hiermee de fysieke interface aan toe aan de public switch, kijk dit dus zelf na wat uw fysieke poort zijn naam is 
-vm switch add public le0
+vm switch add public em0
 
-cp -r template/* /zroot/vm/.templates/.
+cp -r script/template/* /zroot/vm/.templates/.
 
 vm create -t ubuntu -s 4G ubuntu
 vm iso https://releases.ubuntu.com/20.04/ubuntu-20.04.3-live-server-amd64.iso
@@ -33,7 +33,7 @@ vm install ubuntu .iso/ubuntu-20.04.3-live-server-amd64.iso
 
 vm create -t freebsd -s 4G freebsd
 vm iso https://download.freebsd.org/ftp/releases/ISO-IMAGES/12.3/FreeBSD-12.3-RELEASE-amd64-bootonly.iso
-vm install [-f] myguest FreeBSD-11.2-RELEASE-amd64-bootonly.iso
+vm install  myguest FreeBSD-11.2-RELEASE-amd64-bootonly.iso
 
 #De iso's van windows zal u zelf moeten kopieren en dan moeten installeren
 vm create -t windows10 -s 4G windows10
