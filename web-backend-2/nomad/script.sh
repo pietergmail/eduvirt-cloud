@@ -35,12 +35,12 @@ cd /zroot/vm/$name
 
 if(vm switch list | grep -q $vak)
 then
-    sed -i .bak "s/public/$vak/" "$name.conf"
+    sed -i .bak "s/public/$user/" "$name.conf"
     rm $name.conf.bak
 else
-    vm switch create $vak
-    #vm switch add $vak em0
-    sed -i .bak "s/public/$vak/" "$name.conf"
+    vm switch create $user
+    #vm switch add $user em0
+    sed -i .bak "s/public/$user/" "$name.conf"
     rm $name.conf.bak
 fi
 

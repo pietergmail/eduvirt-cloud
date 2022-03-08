@@ -39,7 +39,7 @@ then
     rm $name.conf.bak
 else
     vm switch create $user
-    #vm switch add $vak em0
+    #vm switch add $user em0
     sed -i .bak "s/public/$user/" "$name.conf"
     rm $name.conf.bak
 fi
