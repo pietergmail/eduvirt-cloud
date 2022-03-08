@@ -63,38 +63,80 @@ const getTemplates = (req, res) => {
     res.send(templates);
 };
 
-
+// Methode die alle machines krijgen van een user met de username, deze methode voert een bash commando uit dat alle machines grep't van de user
 const getMachinesOfUser = (req, res) => {
 
-    const user = users.find(user => user.username === req.body.username);
-    exec('vm list | grep ' + req.body.username + ' | sed "s/  */ /g"',
-    function (error, stdout, stderr) {
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
+  const user = users.find(user => user.username === req.body.username);
 
-    //   stdout = "user1_Ubuntu default uefi 2 8G - No Stopped\n" +
-    //   "user1_Ubuntu default uefi 2 8G - No Stopped"
+  if(user.username.includes("admin")){
+  // exec bash commando om alle machines van de user op te halen
+  exec('vm list | sed "s/  */ /g" | tail -n +2',
+  function (error, stdout, stderr) {
+    console.log('stdout: ' + stdout);
+    console.log('stderr: ' + stderr);
 
-    var machines = [];
-    //   get lines of stdout and put every word in new machine
-    var lines = stdout.split("\n");
-    for (var i = 0; i < lines.length; i++) {
-        var words = lines[i].split(" ");
-        var mName = words[0];
-        var mLoader = words[2];
-        var mCores = words[3];
-        var mRAM = words[4];
-        var mIP = words[5];
-        var mStatus = words[7];
-        var mCourse = "";
-       machines.push(new Machine(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse));
+  // hardcoded machines om te testen
+  //   stdout = "user1_Ubuntu default uefi 2 8G - No Stopped\n" +
+  //   "user1_Ubuntu default uefi 2 8G - No Stopped"
+
+  // altijd de machine array van de user leegmaken
+  var machines = [];
+  //elke lijn uit de output van het bash commando wordt hier geparsed in een nieuwe machine array die dan naar de website word gestuurd
+  var lines = stdout.split("\n");
+  for (var i = 0; i < lines.length; i++) {
+      var words = lines[i].split(" ");
+          var mName = words[0];
+          var mLoader = words[2];
+          var mCores = words[3];
+          var mRAM = words[4];
+          var mIP = words[5];
+          var mStatus = words[7];
+          var mCourse = "";
+         machines.push(new Machine(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse));
+      
+  }
+      
+    res.send(machines);
+    if (error !== null) {
+      console.log('exec error: ' + error);
     }
-        
-      res.send(machines);
-      if (error !== null) {
-        console.log('exec error: ' + error);
-      }
-    });
+  });
+  }
+  else{
+
+  // exec bash commando om alle machines van de user op te halen
+  exec('vm list | grep ' + req.body.username + ' | sed "s/  */ /g"',
+  function (error, stdout, stderr) {
+    console.log('stdout: ' + stdout);
+    console.log('stderr: ' + stderr);
+
+  // hardcoded machines om te testen
+  //   stdout = "user1_Ubuntu default uefi 2 8G - No Stopped\n" +
+  //   "user1_Ubuntu default uefi 2 8G - No Stopped"
+
+  // altijd de machine array van de user leegmaken
+  var machines = [];
+  //elke lijn uit de output van het bash commando wordt hier geparsed in een nieuwe machine array die dan naar de website word gestuurd
+  var lines = stdout.split("\n");
+  for (var i = 0; i < lines.length; i++) {
+      var words = lines[i].split(" ");
+          var mName = words[0];
+          var mLoader = words[2];
+          var mCores = words[3];
+          var mRAM = words[4];
+          var mIP = words[5];
+          var mStatus = words[7];
+          var mCourse = "";
+         machines.push(new Machine(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse));
+      
+  }
+      
+    res.send(machines);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }
+  });
+}
 };
 
 
