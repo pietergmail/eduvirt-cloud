@@ -95,10 +95,6 @@ const getMachinesOfUser = (req, res) => {
     var lines = stdout.split("\n");
     for (var i = 0; i < lines.length; i++) {
         var words = lines[i].split(" ");
-        if(words[0] != ""){
-            res.send("no machines");
-        }
-        else {
             var mName = words[0];
             var mLoader = words[2];
             var mCores = words[3];
@@ -107,7 +103,7 @@ const getMachinesOfUser = (req, res) => {
             var mStatus = words[7];
             var mCourse = "";
            machines.push(new Machine(mName, mLoader, mCores, mRAM, mIP, mStatus, mCourse));
-        }
+        
     }
         
       res.send(machines);
