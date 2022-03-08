@@ -119,6 +119,17 @@ const createMachine = (req, res) => {
     res.send(users);
 };
 
+const startVM = (req, res) => {
+    exec('vm start ' + req.body.mName,
+    function (error, stdout, stderr) {
+      console.log('stdout: ' + stdout);
+      console.log('stderr: ' + stderr);
+      if (error !== null) {
+        console.log('exec error: ' + error);
+      }
+      });
+    res.send(req.body.mName + " started");
+}
   
 module.exports = {
     getUsers,
@@ -128,4 +139,5 @@ module.exports = {
     createMachine,
     loginUser,
     getMachinesOfUser,
+    startVM,
   }
