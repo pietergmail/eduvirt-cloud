@@ -27,7 +27,7 @@ const users =
 // array met alle mogelijke vakken
 const courses = [{"courseName": "Netwerken-1"},{"courseName": "Netwerken-2"},{"courseName": "Systeembeheer"}];
 // array met alle mogelijke templates
-const templates = [{"name": "Windows10"},{"name": "WindowsServer2022"},{"name": "Ubuntu"}, {"name": "FreeBSD"}];
+const templates = [{"name": "Windows10"},{"name": "WindowsServer"},{"name": "Ubuntu"}, {"name": "FreeBSD"}];
 
 
 // const defaultMachineUser = users.find(user => user.username === "user1");
