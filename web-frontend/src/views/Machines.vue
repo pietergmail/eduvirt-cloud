@@ -55,7 +55,7 @@
             <div class="overflow-hidden">
               <table class="min-w-full">
                 <thead class="border-b bg-ucllred text-white">
-                  <tr>
+                  <tr class="text-lg text-bold">
                     <th scope="col" class="px-6 py-4 text-left">Machine</th>
                     <th scope="col" class="px-6 py-4 text-left">Loader</th>
                     <th scope="col" class="px-6 py-4 text-left">Course</th>
@@ -68,11 +68,11 @@
                 </thead>
                 <tbody class="bg-gray-200">
                   <tr
-                    class="font-bold text-lg"
+                    class="text-md"
                     v-for="machine in machines"
                     :key="machine.id"
                   >
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td class="px-6 py-4 whitespace-nowrap text-bold">
                       {{ machine.mName }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -87,7 +87,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                       {{ machine.mRAM }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td class="px-6 py-4 whitespace-nowrap text-bold">
                       {{ machine.mIP }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
