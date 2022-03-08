@@ -161,10 +161,12 @@ export default {
           if(machinename.includes('Server1')){
             axios.post('http://200.200.200.' + this.arr[0] +':3000/stopVM', {"mName": machinename})
             console.log(machinename + " on Server1 stopping...");
+            this.$router.push('/machines');
           }
           else if (machinename.includes('Server2')){
             axios.post('http://200.200.200.' + this.arr[1] +':3000/stopVM', {"mName": machinename})
             console.log(machinename + " on Server2 stopping...");
+            this.$router.push('/machines');
           }
           else{
             console.log('Error')
