@@ -81,7 +81,7 @@
             </tr>
           </thead>
           <tbody class="bg-gray-200">
-            <tr class="border-b" v-for="machine in 10" :key="machine.id">
+            <tr class="border-b" v-for="machine in machines" :key="machine.id">
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mName}}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mLoader}}</td>
               <td class="px-6 py-4 whitespace-nowrap">{{machine.mCourse}}</td>

@@ -48,7 +48,7 @@ export default {
             courses: '',
             selectedTemplate: '',
             selectedCourse: '',
-            arr: ["102", "124", "124", "124"],
+            arr: ["102", "124"],
         };
     },
 
