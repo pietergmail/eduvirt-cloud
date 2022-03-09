@@ -57,7 +57,6 @@ export default {
             console.log('Creating VM...');
             if(this.selectedTemplate.length > 0 && this.selectedCourse.length > 0) {
                 await axios.post('http://200.200.200.' + this.arr[Math.floor(Math.random() * this.arr.length)] + ':3000/createMachine', {
-		//await axios.post('http://200.200.200.102:3000/createMachine', {
     "username": sessionStorage.getItem('username'),
     "mName": this.selectedTemplate, 
     "mCourse": this.selectedCourse

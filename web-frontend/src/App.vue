@@ -16,11 +16,9 @@
 </template>
 
 <script>
-// import Navigation from './components/Navigation.vue'
 export default {
   name: 'App',
   components: {
-    // Navigation
   }
 }
 </script>
@@ -31,10 +29,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 }
 body {
-  /* background-color: #0D1117; */
   @apply pb-12 bg-white;
-  /* background-image: url(./assets/background.png);
-  background-repeat: no-repeat; */
 }
 
 </style>
