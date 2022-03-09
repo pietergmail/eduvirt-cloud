@@ -38,8 +38,7 @@ fi
     #sed -i .bak "s/public/$user/" "$name.conf"
     #rm $name.conf.bak
 #else
-    #vm switch create $user
-    #vm switch add $user em0
+    #vm switch create -n $vlanID -i em0 $user
     #sed -i .bak "s/public/$user/" "$name.conf"
     #rm $name.conf.bak
 #fi
