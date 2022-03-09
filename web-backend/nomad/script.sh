@@ -31,9 +31,9 @@ else
 	vm clone $templateName $name
 fi
 
-cd /zroot/vm/$name
+#cd /zroot/vm/$name
 
-#if(vm switch list | grep -q $vak)
+#if(vm switch list | grep -q $user)
 #then
     #sed -i .bak "s/public/$user/" "$name.conf"
     #rm $name.conf.bak
