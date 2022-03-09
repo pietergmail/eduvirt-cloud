@@ -25,7 +25,8 @@ web-backend/routes/RoutingEndpoint.js stuurt de CRUD methodes naar web-backend/s
 ```cs
 const port = process.env.PORT || 3000;
 ```
-## Iedereen kent de cors erros wel, daarom staat er nu dat CORS op elke origin mag, voor de veiligheid te garanderen kan je het * veranderen naar de URL's die wel betrouwbaar zijn. Dit kan je veranderen in web-backend/server.js 
+## CORS
+### Iedereen kent de cors erros wel, daarom staat er nu dat CORS op elke origin mag, voor de veiligheid te garanderen kan je het * veranderen naar de URL's die wel betrouwbaar zijn. Dit kan je veranderen in web-backend/server.js 
 ```cs
 app.use(cors({origin: '*'}));
 ```
