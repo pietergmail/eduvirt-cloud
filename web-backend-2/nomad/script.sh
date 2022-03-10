@@ -33,15 +33,27 @@ fi
 
 #cd /zroot/vm/$name
 
-#vlanID=$(vm switch list | sed "s/  */ /g" | tail -1 | rev |cut -d' ' -f2 | rev)
-#secondVlanID=$(ssh root@200.200.200.102 -p 22345 vm switch list | sed "s/  */ /g" | tail -1 | rev |cut -d' ' -f2 | rev)
-#maxVlan= 0
-#if [ $vlanID -gt $secondVlanID ]
+#vlanID=($(echo "$(vm switch list | sed "s/  */ /g" | tail -n +2 | rev |cut -d' ' -f2 | rev)" | tr ' ' '\n'))
+
+#secondVlanID=($(echo "$(ssh root@200.200.200.102 -p 22345 vm switch list | sed "s/  */ /g" | tail -n +2 | rev |cut -d' ' -f2 | rev)" | tr ' ' '\n'))
+
+#we're trying to find the maximum vlan id of the first server
+#IFS=$'\n'
+#firstMax=($(echo "${vlanID[*]}" | sort -nr | head -n1))
+
+#we're trying to find the maximum vlan id of the second server
+
+#IFS=$'\n'
+#secondMax=($(echo "${secondVlanID[*]}" | sort -nr | head -n1))
+
+#maxVlan=0
+#if [ $firstMax -gt $secondMax ]
 #then
-    #maxVlan=$vlanID
+    #maxVlan=$firstMax
 #else
-    #maxVlan=$secondVlanID
+    #maxVlan=$secondMax
 #fi
+
 
 #if(vm switch list | grep -q $user)
 #then
@@ -54,6 +66,7 @@ fi
     #sed -i .bak "s/public/$user/" "$name.conf"
     #rm $name.conf.bak
 #else
+    #maxVlan=$(($maxVlan + 10))
     #vm switch create -n ${maxVlan} -i em0 $user
     #sed -i .bak "s/public/$user/" "$name.conf"
     #rm $name.conf.bak
