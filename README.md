@@ -69,6 +69,8 @@ windows server:
 ```cs
 vm install windowsServer windowsServer.iso
 ```
+## ssh keys
+Om ervoor te zorgen dat communicatie veilig mogelijk is tussen de web-back-end en server-back-end moeten er ssh-keys geconfigureerd zijn tussen alle servers.
 ## 2nd install
 Om een tweede server op te zetten worden dezelfde stappen gevolgd als het eerste, maar word het script install-2nd-server.sh gerunt.
 Deze zal de 2e back end runnen (web-backend-2), en dan kan deze zijn ip address in de array in de file /web-frontend/src/views/AddMachine.vue gezet worden.
