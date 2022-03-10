@@ -82,3 +82,4 @@ Indien u dit op meer dan 2 servers wilt deployen pakt u het beste de web-backend
 Zorg ervoor de de VLAN functionaliteit op de router werkt en aanstaat.
 
 Hierna zal u in het script, dat u kan vinden onder de web-backend/nomad, de naam van de fysieke poort moeten aanpassen naar die van uw systeem. Op het moment staat die op em0.
+Ook zal u het einde van het script moeten uncommenten aangezien dit op ons systeem niet getest kon worden.
