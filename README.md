@@ -81,18 +81,4 @@ Indien u dit op meer dan 2 servers wilt deployen pakt u het beste de web-backend
 ## Vlan's voor de vm's
 Zorg ervoor de de VLAN functionaliteit op de router werkt en aanstaat.
 
-Als eerste gaat u een nieuwe bhyve switch moeten aanmaken.
-Dit kan u doen door het onderstaande commando uit te voeren:
-```
-vm switch create <naam>
-```
-Dit commando maakt een nieuwe switch aan in bhyve 
-Hierna maakt u een virtuele interface aan. Stel uw fysieke poort heeft als naam em0, dan maakt dit commando een virtuele poort aan.
-```
-ifconfig em0.10 create
-```
-de switch connecteert u dan met de de virtuele poort via:
-```
-vm switch add <naam> em0.10
-```
-Dan moet u in de conf file van uw virtuele machine, die u kan vinden onder /zroot/vm/<naamMachine>, de network0_Switch parameter veranderen naar de naam van uw bhyve switch.
+Hierna zal u in het script, dat u kan vinden onder de web-backend/nomad, de naam van de fysieke poort moeten aanpassen naar die van uw systeem. Op het moment staat die op em0.
