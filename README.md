@@ -70,10 +70,13 @@ windows server:
 vm install windowsServer windowsServer.iso
 ```
 ## ssh keys
-Om ervoor te zorgen dat communicatie veilig mogelijk is tussen de web-back-end en server-back-end moeten er ssh-keys geconfigureerd zijn tussen alle servers.
+Om ervoor te zorgen dat communicatie veilig mogelijk is tussen de web-back-end en server-back-end moeten er ssh-keys geconfigureerd zijn tussen alle servers. Dit zorgt er ook voor dat de commandos naar de andere servers, die in de scripts zitten, automatisch uitgevoerd kunnen worden.
+De scripts met de commandos in staan onder web-backend/nomad/script.sh en web-baackend-2/nomad/script.sh
+
 ## 2nd install
 Om een tweede server op te zetten worden dezelfde stappen gevolgd als het eerste, maar word het script install-2nd-server.sh gerunt.
 Deze zal de 2e back end runnen (web-backend-2), en dan kan deze zijn ip address in de array in de file /web-frontend/src/views/AddMachine.vue gezet worden.
+Indien u dit op meer dan 2 servers wilt deployen pakt u het beste de web-backend-2 en past u hier een paar dingen in aan en runned u dit op de nieuwe servers. Er zullen ook nog aanpassingen gedaan moeten worden in de frontend om zo alle virtuele machines van elke server dan te krijgen, dit vind u bij dezelfde files als waar de harcoded IP adressen staan.
 
 ## Vlan's voor de vm's
 Zorg ervoor de de VLAN functionaliteit op de router werkt en aanstaat.
