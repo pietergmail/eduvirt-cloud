@@ -33,12 +33,31 @@ fi
 
 #cd /zroot/vm/$name
 
+#vlanID= vm switch list | sed "s/  */ /g" | tail -1 | rev |cut -d' ' -f2 | rev
+#secondVlanID= ssh root@200.200.200.124 -p 22345 vm switch list | sed "s/  */ /g" | tail -1 | rev |cut -d' ' -f2 | rev
+#maxVlan= 0
+#if [ $vlanID > $secondVlanID ]
+#then
+    #maxVlan=$vlanID
+#elif [ $vlanID == $secondVlanID ]
+#then
+    #maxVlan=$vlanID
+#else
+    #maxVlan=$secondVlanID
+#fi
+
 #if(vm switch list | grep -q $user)
 #then
     #sed -i .bak "s/public/$user/" "$name.conf"
     #rm $name.conf.bak
+#elif(ssh root@200.200.200.124 -p 22345 vm switch list | grep -q $user)
+#then
+    #neededVlan=$(ssh root@200.200.200.124 -p 22345 vm switch list | grep -q $user | sed "s/  */ /g" | rev |cut -d' ' -f2 | rev)
+    #vm switch create -n $neededVlan -i em0 $user
+    #sed -i .bak "s/public/$user/" "$name.conf"
+    #rm $name.conf.bak
 #else
-    #vm switch create -n $vlanID -i em0 $user
+    #vm switch create -n $maxVlan -i em0 $user
     #sed -i .bak "s/public/$user/" "$name.conf"
     #rm $name.conf.bak
 #fi
